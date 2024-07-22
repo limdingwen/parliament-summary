@@ -5,6 +5,7 @@ import * as pdfjs from "../lib/pdfjs/pdf.mjs";
 import * as pdfjsworker from "../lib/pdfjs/pdf.worker.mjs";
 
 // Just a reference to force the import of the worker, otherwise it will not be included in the bundle
+// noinspection JSUnusedLocalSymbols
 type p = typeof pdfjsworker;
 pdfjs.GlobalWorkerOptions.workerSrc = "./pdf.worker.mjs";
 
