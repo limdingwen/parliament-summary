@@ -4,6 +4,7 @@ import {
   Element,
 } from "https://deno.land/x/deno_dom@v0.1.46/deno-dom-wasm.ts";
 import { createSupabase } from "../create-supabase.ts";
+import { buildResponse } from "../build-response.ts";
 
 function toIsoDate(dateString: string): string {
   const [day, month, year] = dateString.split(".");
@@ -70,6 +71,7 @@ Deno.serve(async () => {
       summary: null,
     };
   });
+
   // Bill scraped data often gets updated (e.g. has been passed), so we merge duplicates instead of ignoring them
   const { error } = await supabase.from("bill").upsert(scrapedData, {
     onConflict: "bill_no",
@@ -77,7 +79,5 @@ Deno.serve(async () => {
   });
   if (error) throw error;
 
-  return new Response(JSON.stringify({ added: scrapedData }), {
-    headers: { "Content-Type": "application/json" },
-  });
+  return buildResponse({ added: scrapedData });
 });
