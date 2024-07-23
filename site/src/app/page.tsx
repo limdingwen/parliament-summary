@@ -8,6 +8,7 @@ import {
   Text,
   Stack,
   Center,
+  Title,
 } from "@mantine/core";
 import { createClient } from "@/utils/supabase/client";
 import moment from "moment";
@@ -29,6 +30,8 @@ async function RecentBills() {
   return (
     <Center>
       <Stack gap="md" justify="center" align="stretch" maw={800}>
+        <Title>Recent Bills</Title>
+
         {(await getRecentBills()).map((bill) => (
           <Card shadow="sm" padding="lg" radius="md" withBorder>
             <Group justify="space-between">
