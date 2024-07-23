@@ -54,5 +54,7 @@ Deno.serve(async () => {
     .eq("id", row_with_null_text.id);
   if (updateError) throw updateError;
 
-  return buildResponse({ extractedText });
+  return buildResponse({
+    message: `Added PDF text to row ID ${row_with_null_text.id}.`,
+  });
 });
