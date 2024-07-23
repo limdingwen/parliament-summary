@@ -11,6 +11,10 @@ function toIsoDate(dateString: string): string {
   return `${year}-${month}-${day}`;
 }
 
+function sanitiseUrl(url: string) {
+  return url.split("?")[0].split("#")[0];
+}
+
 // Scrapes recent bills metadata
 // Does not scrape the actual bill text and does not actually summarise them
 Deno.serve(async () => {
@@ -30,19 +34,21 @@ Deno.serve(async () => {
     "text/html",
   );
 
-  // Turn HTML to actual data we can use
+  let addCount = 0;
+  let updateCount = 0;
+
   const billsIntroduced = billsIntroducedDoc.querySelectorAll(
     ".indv-bill",
   ) as Iterable<Element>;
-  const billsIntroducedArray = Array.from(billsIntroduced);
-  const scrapedData = billsIntroducedArray.map((billIntroduced) => {
+  for (const billIntroduced of billsIntroduced) {
     const is_second_reading_next_available_seating = billIntroduced
       .querySelector(".indv-bill .row:nth-of-type(2) div:nth-of-type(2)")!
       .textContent.includes("Next Available Sitting");
     const passed_date: string | undefined = billIntroduced
       .querySelector(".indv-bill .row:nth-of-type(2) div:nth-of-type(3)")!
       .textContent.match(/(\d{2}\.\d{2}\.\d{4})/gm)?.[0];
-    return {
+
+    const scrapedData = {
       bill_no: billIntroduced
         .querySelector(".indv-bill .bill-title div:nth-of-type(2)")!
         .textContent.match(/(\d+\/\d{4})/gm)?.[0]!,
@@ -66,18 +72,41 @@ Deno.serve(async () => {
           ),
       is_passed: passed_date !== undefined,
       passed_date: passed_date ? toIsoDate(passed_date) : null,
-      pdf_url: billIntroduced.querySelector("a")!.getAttribute("href")!,
+      pdf_url: sanitiseUrl(
+        billIntroduced.querySelector("a")!.getAttribute("href")!,
+      ),
       original_text: null,
       summary: null,
     };
-  });
 
-  // Bill scraped data often gets updated (e.g. has been passed), so we merge duplicates instead of ignoring them
-  const { error } = await supabase.from("bill").upsert(scrapedData, {
-    onConflict: "bill_no",
-    ignoreDuplicates: false,
-  });
-  if (error) throw error;
+    const billExists =
+      (await supabase
+        .from("bill")
+        .select("bill_no")
+        .eq("bill_no", scrapedData.bill_no)
+        .maybeSingle()) != null;
 
-  return buildResponse({ added: scrapedData });
+    if (billExists) {
+      // Make sure that we don't overwrite the original_text and summary values
+      const {
+        original_text: _original_text,
+        summary: _summary,
+        ...scrapedDataToUpdate
+      } = scrapedData;
+      const { error } = await supabase
+        .from("bill")
+        .update(scrapedDataToUpdate)
+        .eq("bill_no", scrapedData.bill_no);
+      if (error) throw error;
+      updateCount++;
+    } else {
+      const { error } = await supabase.from("bill").insert(scrapedData);
+      if (error) throw error;
+      addCount++;
+    }
+  }
+
+  return buildResponse({
+    message: `Added ${addCount} new bills and updated ${updateCount} existing bills.`,
+  });
 });
