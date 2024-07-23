@@ -1,15 +1,15 @@
 "use client";
 
 import { AppShell } from "@mantine/core";
+import { createClient } from "@/utils/supabase/client";
 
-export default function Home() {
+export default async function Home() {
+  const supabase = createClient();
+  const test = await supabase.from("bill").select();
+
   return (
-    <AppShell header={{ height: 60 }} padding="md">
-      <AppShell.Header>
-        <div>Logo</div>
-      </AppShell.Header>
-
-      <AppShell.Main>Main</AppShell.Main>
+    <AppShell padding="md">
+      <AppShell.Main>Hello world! :) {JSON.stringify(test)}</AppShell.Main>
     </AppShell>
   );
 }
