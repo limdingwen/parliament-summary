@@ -58,6 +58,9 @@ Deno.serve(async (req) => {
     .update({ original_text: extractedText })
     .eq("id", row_with_null_text.id);
   if (updateError) throw updateError;
+  console.info(
+    `Row ID ${row_with_null_text.id} now has text from ${row_with_null_text.pdf_url}: ${extractedText}`,
+  );
 
   return buildResponse({
     message: `Added PDF text to row ID ${row_with_null_text.id}.`,

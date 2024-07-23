@@ -104,10 +104,16 @@ Deno.serve(async (req) => {
         .eq("bill_no", scrapedData.bill_no);
       if (error) throw error;
       updateCount++;
+      console.info(
+        `Updated bill ${scrapedData.bill_no} with the following data: ${JSON.stringify(scrapedDataToUpdate)}`,
+      );
     } else {
       const { error } = await supabase.from("bill").insert(scrapedData);
       if (error) throw error;
       addCount++;
+      console.info(
+        `Added bill ${scrapedData.bill_no} with the following data: ${JSON.stringify(scrapedData)}`,
+      );
     }
   }
 
