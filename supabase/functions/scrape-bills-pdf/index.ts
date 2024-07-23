@@ -10,6 +10,10 @@ import * as pdfjsworker from "../lib/pdfjs/pdf.worker.mjs";
 type p = typeof pdfjsworker;
 pdfjs.GlobalWorkerOptions.workerSrc = "./pdf.worker.mjs";
 
+function sanitiseText(text: string) {
+  return text.replace(/\0/g, "");
+}
+
 async function extractTextFromPdf(pdfUrl: string) {
   const response = await fetch(pdfUrl);
 
@@ -52,7 +56,9 @@ Deno.serve(async (req) => {
   if (!row_with_null_text)
     return buildResponse({ message: "No bills need PDF text scraping." });
 
-  const extractedText = await extractTextFromPdf(row_with_null_text.pdf_url);
+  const extractedText = sanitiseText(
+    await extractTextFromPdf(row_with_null_text.pdf_url),
+  );
   const { error: updateError } = await supabase
     .from("bill")
     .update({ original_text: extractedText })
