@@ -1,6 +1,7 @@
 import "https://esm.sh/@supabase/functions-js/src/edge-runtime.d.ts";
 import { createSupabase } from "../create-supabase.ts";
 import { buildResponse } from "../build-response.ts";
+import { isAdmin } from "../check-admin.ts";
 import * as pdfjs from "../lib/pdfjs/pdf.mjs";
 import * as pdfjsworker from "../lib/pdfjs/pdf.worker.mjs";
 
@@ -34,8 +35,12 @@ async function extractTextFromPdf(pdfUrl: string) {
 // Only scrapes one bill's text (via PDF) to avoid overloading the server
 // Will check the database if any bill's text needs scraping (i.e. still null)
 // Run this function on a schedule to scrape all bills
-Deno.serve(async () => {
+Deno.serve(async (req) => {
   const supabase = createSupabase();
+
+  if (!isAdmin(req)) {
+    return buildResponse({ message: "Unauthorised." }, 401);
+  }
 
   const { data: row_with_null_text, error: selectError } = await supabase
     .from("bill")

@@ -5,6 +5,7 @@ import {
 } from "https://deno.land/x/deno_dom@v0.1.46/deno-dom-wasm.ts";
 import { createSupabase } from "../create-supabase.ts";
 import { buildResponse } from "../build-response.ts";
+import { isAdmin } from "../check-admin.ts";
 
 function toIsoDate(dateString: string): string {
   const [day, month, year] = dateString.split(".");
@@ -17,8 +18,12 @@ function sanitiseUrl(url: string) {
 
 // Scrapes recent bills metadata
 // Does not scrape the actual bill text and does not actually summarise them
-Deno.serve(async () => {
+Deno.serve(async (req) => {
   const supabase = createSupabase();
+
+  if (!isAdmin(req)) {
+    return buildResponse({ message: "Unauthorised." }, 401);
+  }
 
   const billsIntroducedUrl =
     "https://www.parliament.gov.sg/parliamentary-business/bills-introduced";
