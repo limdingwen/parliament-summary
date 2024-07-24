@@ -1,3 +1,7 @@
 export default function SummaryNotAvailableApology() {
-  return <>We're processing this bill's summary right now! Check back soon.</>;
+  return (
+    <>
+      We&apos;re processing this bill&apos;s summary right now! Check back soon.
+    </>
+  );
 }
