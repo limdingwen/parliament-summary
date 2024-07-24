@@ -1,17 +1,9 @@
-import {
-  Badge,
-  Button,
-  Card,
-  Group,
-  Text,
-  Stack,
-  Center,
-  Title,
-} from "@mantine/core";
+import { Badge, Button, Card, Group, Text, Stack, Center } from "@mantine/core";
 import { createClient } from "@/utils/supabase/client";
 import moment from "moment";
 import Markdown from "react-markdown";
 import Link from "next/link";
+import PageTitle from "@/app/components/PageTitle";
 
 export const runtime = "edge";
 
@@ -95,7 +87,10 @@ export default async function RecentBills() {
   return (
     <Center>
       <Stack gap="md" justify="center" align="stretch" maw={800}>
-        <Title>Recent Bills</Title>
+        <PageTitle
+          title="Recent Bills"
+          subtitle="Bills, including constitutional amendments, are proposals to change Singapore's laws. A bill needs a majority to pass, while amendments require a two-thirds majority. Below are the most recent proposals."
+        />
 
         {(await getRecentBills()).map((bill) => (
           <ShortBill key={bill.bill_no} {...bill} />
