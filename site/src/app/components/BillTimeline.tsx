@@ -126,6 +126,7 @@ export default function BillTimeline({
           bill.passed_date,
         )}
       />
+
       <StandardTimelineItem
         bullet={<IconGavel size={12} />}
         title="Bill passed"
