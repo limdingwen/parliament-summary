@@ -32,6 +32,54 @@ async function getRecentBills() {
   return data;
 }
 
+async function ShortBill(bill: {
+  bill_no: string;
+  name: string;
+  second_reading_date_type: string;
+  second_reading_date: string | null;
+  is_passed: boolean;
+  passed_date: string | null;
+  summary: string | null;
+}) {
+  return (
+    <Card shadow="sm" padding="lg" radius="md" withBorder>
+      <Group justify="space-between">
+        <Text fw="semibold">{bill.name}</Text>
+        {bill.is_passed ? (
+          <Badge color="gray">
+            Passed {moment(bill.passed_date).fromNow()}
+          </Badge>
+        ) : (
+          <Badge color="pink">
+            {bill.second_reading_date_type == "explicit"
+              ? `Reading ${moment(bill.second_reading_date).fromNow()}`
+              : "Reading during next seating"}
+          </Badge>
+        )}
+      </Group>
+
+      <Text mt="xs" size="sm" c="dimmed" component="div">
+        {bill.summary ? (
+          <Markdown>{bill.summary}</Markdown>
+        ) : (
+          "We're processing this bill's summary right now! Check back soon."
+        )}
+      </Text>
+
+      <Button
+        color="blue"
+        fullWidth
+        mt="md"
+        radius="md"
+        component={Link}
+        href={`/bills/${flipBillNo(bill.bill_no)}`}
+      >
+        View more
+      </Button>
+    </Card>
+  );
+}
+
 export default async function RecentBills() {
   return (
     <Center>
@@ -39,47 +87,7 @@ export default async function RecentBills() {
         <Title>Recent Bills</Title>
 
         {(await getRecentBills()).map((bill) => (
-          <Card
-            key={bill.bill_no}
-            shadow="sm"
-            padding="lg"
-            radius="md"
-            withBorder
-          >
-            <Group justify="space-between">
-              <Text fw="semibold">{bill.name}</Text>
-              {bill.is_passed ? (
-                <Badge color="gray">
-                  Passed {moment(bill.passed_date).fromNow()}
-                </Badge>
-              ) : (
-                <Badge color="pink">
-                  {bill.second_reading_date_type == "explicit"
-                    ? `Reading ${moment(bill.second_reading_date).fromNow()}`
-                    : "Reading during next seating"}
-                </Badge>
-              )}
-            </Group>
-
-            <Text mt="xs" size="sm" c="dimmed" component="div">
-              {bill.summary ? (
-                <Markdown>{bill.summary}</Markdown>
-              ) : (
-                "We're processing this bill's summary right now! Check back soon."
-              )}
-            </Text>
-
-            <Button
-              color="blue"
-              fullWidth
-              mt="md"
-              radius="md"
-              component={Link}
-              href={`/bills/${flipBillNo(bill.bill_no)}`}
-            >
-              View more
-            </Button>
-          </Card>
+          <ShortBill key={bill.bill_no} {...bill} />
         ))}
       </Stack>
     </Center>
