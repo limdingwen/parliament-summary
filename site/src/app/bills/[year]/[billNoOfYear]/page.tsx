@@ -1,28 +1,21 @@
 import { createClient } from "@/utils/supabase/client";
-import {
-  Button,
-  Card,
-  Center,
-  Group,
-  Stack,
-  Text,
-  Timeline,
-  TimelineItem,
-} from "@mantine/core";
-import Markdown from "react-markdown";
+import { Text, Timeline, TimelineItem } from "@mantine/core";
 import PageTitle from "@/app/components/PageTitle";
 import {
-  IconThumbUp,
+  IconGavel,
   IconLicense,
   IconMessage,
-  IconGavel,
   IconMessagePlus,
+  IconThumbUp,
   IconUsersGroup,
 } from "@tabler/icons-react";
 import moment from "moment/moment";
-import AiDisclaimer from "@/app/components/AiDisclaimer";
-import Link from "next/link";
 import React from "react";
+import HumanFriendlyColumn from "@/app/components/HumanFriendlyColumn";
+import StandardStack from "@/app/components/StandardStack";
+import StandardCard from "@/app/components/StandardCard";
+import StandardCardTitle from "@/app/components/StandardCardTitle";
+import BillSummary from "@/app/components/billSummary";
 
 export const runtime = "edge";
 
@@ -53,57 +46,17 @@ export default async function FullBill({
   );
 
   return (
-    <Center>
-      <Stack gap="md" justify="center" align="stretch" maw={800}>
+    <HumanFriendlyColumn>
+      <StandardStack>
         <PageTitle
           title={bill.name}
           subtitle={`Explore the details of bill number ${bill.bill_no}.`}
         />
 
-        <Card shadow="sm" padding="lg" radius="md" withBorder>
-          <Group justify="space-between">
-            <Text fw="semibold">Summary</Text>
-          </Group>
+        <BillSummary bill={bill} />
 
-          <Text mt="xs" size="sm" c="dimmed" component="div">
-            {bill.summary ? (
-              <Stack>
-                <Markdown>{bill.summary}</Markdown>
-                <Group justify="space-between">
-                  <AiDisclaimer
-                    shortExplainer="Summary written by AI"
-                    explainer="This summary was written by a cute little robot, but it may not be fully accurate. Please read the original PDF for the most accurate information. Hopefully, this summary helps you get the gist of it!"
-                  ></AiDisclaimer>
-                  <Button
-                    color="gray"
-                    radius="md"
-                    component={Link}
-                    href={bill.pdf_url}
-                  >
-                    Original PDF
-                  </Button>
-                </Group>
-              </Stack>
-            ) : (
-              <Group justify="space-between">
-                We're processing this bill's summary right now! Check back soon.
-                <Button
-                  color="gray"
-                  radius="md"
-                  component={Link}
-                  href={bill.pdf_url}
-                >
-                  Original PDF
-                </Button>
-              </Group>
-            )}
-          </Text>
-        </Card>
-
-        <Card shadow="sm" padding="lg" radius="md" withBorder>
-          <Group justify="space-between">
-            <Text fw="semibold">Timeline</Text>
-          </Group>
+        <StandardCard>
+          <StandardCardTitle>Timeline</StandardCardTitle>
           <Timeline
             pl="xl"
             pr="xl"
@@ -209,8 +162,8 @@ export default async function FullBill({
               </Text>
             </TimelineItem>
           </Timeline>
-        </Card>
-      </Stack>
-    </Center>
+        </StandardCard>
+      </StandardStack>
+    </HumanFriendlyColumn>
   );
 }

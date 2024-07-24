@@ -1,17 +1,10 @@
-import { Badge, Button, Card, Group, Text, Stack, Center } from "@mantine/core";
 import { createClient } from "@/utils/supabase/client";
-import moment from "moment";
-import Markdown from "react-markdown";
-import Link from "next/link";
 import PageTitle from "@/app/components/PageTitle";
-import AiDisclaimer from "@/app/components/AiDisclaimer";
+import ShortBill from "@/app/components/ShortBill";
+import HumanFriendlyColumn from "@/app/components/HumanFriendlyColumn";
+import StandardStack from "@/app/components/StandardStack";
 
 export const runtime = "edge";
-
-function flipBillNo(billNo: string) {
-  const [billOfYear, year] = billNo.split("/");
-  return `${year}/${billOfYear}`;
-}
 
 async function getRecentBills() {
   const supabase = createClient();
@@ -26,84 +19,19 @@ async function getRecentBills() {
   return data;
 }
 
-async function ShortBill(bill: {
-  bill_no: string;
-  name: string;
-  second_reading_date_type: string;
-  second_reading_date: string | null;
-  is_passed: boolean;
-  passed_date: string | null;
-  summary: string | null;
-  pdf_url: string;
-}) {
-  return (
-    <Card shadow="sm" padding="lg" radius="md" withBorder>
-      <Group justify="space-between">
-        <Text fw="semibold">{bill.name}</Text>
-        {bill.is_passed ? (
-          <Badge color="gray">
-            Passed {moment(bill.passed_date).fromNow()}
-          </Badge>
-        ) : (
-          <Badge color="pink">
-            {bill.second_reading_date_type == "explicit"
-              ? `Reading ${moment(bill.second_reading_date).fromNow()}`
-              : "Reading during next seating"}
-          </Badge>
-        )}
-      </Group>
-
-      <Text mt="xs" size="sm" c="dimmed" component="div">
-        {bill.summary ? (
-          <Stack>
-            <Markdown>{bill.summary}</Markdown>
-            <AiDisclaimer
-              shortExplainer="Summary written by AI"
-              explainer="This summary was written by a cute little robot, but it may not be fully accurate. Please read the original PDF for the most accurate information. Hopefully, this summary helps you get the gist of it!"
-            ></AiDisclaimer>
-          </Stack>
-        ) : (
-          "We're processing this bill's summary right now! Check back soon."
-        )}
-      </Text>
-
-      <Group grow>
-        <Button
-          color="blue"
-          mt="md"
-          radius="md"
-          component={Link}
-          href={`/bills/${flipBillNo(bill.bill_no)}`}
-        >
-          Overview
-        </Button>
-        <Button
-          color="gray"
-          mt="md"
-          radius="md"
-          component={Link}
-          href={bill.pdf_url}
-        >
-          Original PDF
-        </Button>
-      </Group>
-    </Card>
-  );
-}
-
 export default async function RecentBills() {
   return (
-    <Center>
-      <Stack gap="md" justify="center" align="stretch" maw={800}>
+    <HumanFriendlyColumn>
+      <StandardStack>
         <PageTitle
           title="Recent Bills"
           subtitle="Bills, including constitutional amendments, are proposals to change Singapore's laws. A bill needs a majority to pass, while amendments require a two-thirds majority. Below are the most recent proposals."
         />
 
         {(await getRecentBills()).map((bill) => (
-          <ShortBill key={bill.bill_no} {...bill} />
+          <ShortBill key={bill.bill_no} bill={bill} />
         ))}
-      </Stack>
-    </Center>
+      </StandardStack>
+    </HumanFriendlyColumn>
   );
 }
