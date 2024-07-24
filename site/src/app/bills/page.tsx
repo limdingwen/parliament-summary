@@ -25,7 +25,7 @@ async function getRecentBills() {
   const { error, data } = await supabase
     .from("bill")
     .select(
-      "bill_no, name, second_reading_date_type, second_reading_date, is_passed, passed_date, summary",
+      "bill_no, name, second_reading_date_type, second_reading_date, is_passed, passed_date, summary, pdf_url",
     )
     .order("date_introduced", { ascending: false });
   if (error) throw error;
@@ -40,6 +40,7 @@ async function ShortBill(bill: {
   is_passed: boolean;
   passed_date: string | null;
   summary: string | null;
+  pdf_url: string;
 }) {
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
@@ -66,16 +67,26 @@ async function ShortBill(bill: {
         )}
       </Text>
 
-      <Button
-        color="blue"
-        fullWidth
-        mt="md"
-        radius="md"
-        component={Link}
-        href={`/bills/${flipBillNo(bill.bill_no)}`}
-      >
-        View more
-      </Button>
+      <Group grow>
+        <Button
+          color="blue"
+          mt="md"
+          radius="md"
+          component={Link}
+          href={`/bills/${flipBillNo(bill.bill_no)}`}
+        >
+          Overview
+        </Button>
+        <Button
+          color="gray"
+          mt="md"
+          radius="md"
+          component={Link}
+          href={bill.pdf_url}
+        >
+          Original PDF
+        </Button>
+      </Group>
     </Card>
   );
 }
