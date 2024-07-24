@@ -1,7 +1,3 @@
-"use client";
-
-import { useState } from "react";
-import { Group, Text } from "@mantine/core";
 import {
   IconBellRinging,
   IconZoom,
@@ -13,25 +9,19 @@ import {
 import classes from "./NavbarSimple.module.css";
 
 const data = [
-  { link: "", label: "Find MP", icon: IconZoom },
-  { link: "", label: "My alerts", icon: IconBellRinging },
-  { link: "", label: "Bills", icon: IconGavel },
-  { link: "", label: "Q&A", icon: IconMessage2Question },
+  { link: "#", label: "Find MP", icon: IconZoom },
+  { link: "#", label: "My alerts", icon: IconBellRinging },
+  { link: "/bills", label: "Bills", icon: IconGavel },
+  { link: "#", label: "Q&A", icon: IconMessage2Question },
 ];
 
 export function NavbarSimple() {
-  const [active, setActive] = useState("Billing");
-
   const links = data.map((item) => (
     <a
       className={classes.link}
-      data-active={item.label === active || undefined}
+      data-active={false}
       href={item.link}
       key={item.label}
-      onClick={(event) => {
-        event.preventDefault();
-        setActive(item.label);
-      }}
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />
       <span>{item.label}</span>
@@ -43,20 +33,12 @@ export function NavbarSimple() {
       <div className={classes.navbarMain}>{links}</div>
 
       <div className={classes.footer}>
-        <a
-          href="#"
-          className={classes.link}
-          onClick={(event) => event.preventDefault()}
-        >
+        <a href="#" className={classes.link}>
           <IconInfoCircle className={classes.linkIcon} stroke={1.5} />
           <span>About us</span>
         </a>
 
-        <a
-          href="#"
-          className={classes.link}
-          onClick={(event) => event.preventDefault()}
-        >
+        <a href="#" className={classes.link}>
           <IconCodeDots className={classes.linkIcon} stroke={1.5} />
           <span>Developer</span>
         </a>
