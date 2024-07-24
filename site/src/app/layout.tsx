@@ -8,9 +8,11 @@ import "@mantine/core/styles.css";
 import {
   AppShell,
   AppShellMain,
+  AppShellNavbar,
   ColorSchemeScript,
   MantineProvider,
 } from "@mantine/core";
+import { NavbarSimple } from "@/app/components/NavbarSimple";
 
 export const metadata: Metadata = {
   title: "Parliament Summary",
@@ -18,7 +20,17 @@ export const metadata: Metadata = {
 
 function Shell({ children }: { children: React.ReactNode }) {
   return (
-    <AppShell padding="md">
+    <AppShell
+      navbar={{
+        width: 300,
+        breakpoint: "sm",
+      }}
+      padding="md"
+    >
+      <AppShellNavbar p="md">
+        <NavbarSimple />
+      </AppShellNavbar>
+
       <AppShellMain>{children}</AppShellMain>
     </AppShell>
   );
