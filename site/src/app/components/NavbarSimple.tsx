@@ -7,7 +7,7 @@ import {
   IconZoom,
   IconGavel,
   IconMessage2Question,
-  IconDatabase,
+  IconCodeDots,
   IconInfoCircle,
 } from "@tabler/icons-react";
 import classes from "./NavbarSimple.module.css";
@@ -64,8 +64,8 @@ export function NavbarSimple() {
           className={classes.link}
           onClick={(event) => event.preventDefault()}
         >
-          <IconDatabase className={classes.linkIcon} stroke={1.5} />
-          <span>Raw data</span>
+          <IconCodeDots className={classes.linkIcon} stroke={1.5} />
+          <span>Developer</span>
         </a>
       </div>
     </div>
