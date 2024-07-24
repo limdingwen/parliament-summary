@@ -31,6 +31,26 @@ function thirdReadingTimeDescription(
   return is_passed ? moment(passed_date).fromNow() : "To be decided";
 }
 
+function calculateBillActiveStep(bill: {
+  date_introduced: string;
+  second_reading_date_type: string;
+  second_reading_date: string | null;
+  is_passed: boolean;
+}) {
+  if (bill.is_passed) {
+    return 6;
+  }
+
+  if (
+    bill.second_reading_date_type == "explicit" &&
+    moment(bill.second_reading_date) >= moment()
+  ) {
+    return 3;
+  }
+
+  return 1;
+}
+
 export default function BillTimeline({
   bill,
 }: {
@@ -43,7 +63,14 @@ export default function BillTimeline({
   };
 }) {
   return (
-    <Timeline pl="xl" pr="xl" mt="xl" active={3} bulletSize={24} lineWidth={2}>
+    <Timeline
+      pl="xl"
+      pr="xl"
+      mt="xl"
+      active={calculateBillActiveStep(bill)}
+      bulletSize={24}
+      lineWidth={2}
+    >
       <StandardTimelineItem
         bullet={<IconLicense size={12} />}
         title="Bill introduced"
