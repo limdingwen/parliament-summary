@@ -15,7 +15,7 @@ import HumanFriendlyColumn from "@/app/components/HumanFriendlyColumn";
 import StandardStack from "@/app/components/StandardStack";
 import StandardCard from "@/app/components/StandardCard";
 import StandardCardTitle from "@/app/components/StandardCardTitle";
-import BillSummary from "@/app/components/billSummary";
+import BillSummary from "@/app/components/BillSummary";
 
 export const runtime = "edge";
 
