@@ -4,6 +4,7 @@ import moment from "moment";
 import Markdown from "react-markdown";
 import Link from "next/link";
 import PageTitle from "@/app/components/PageTitle";
+import AiDisclaimer from "@/app/components/AiDisclaimer";
 
 export const runtime = "edge";
 
@@ -54,7 +55,13 @@ async function ShortBill(bill: {
 
       <Text mt="xs" size="sm" c="dimmed" component="div">
         {bill.summary ? (
-          <Markdown>{bill.summary}</Markdown>
+          <Stack>
+            <Markdown>{bill.summary}</Markdown>
+            <AiDisclaimer
+              shortExplainer="Summary written by AI"
+              explainer="This summary was written by a cute little robot, but it may not be fully accurate. Please read the original PDF for the most accurate information. Hopefully, this summary helps you get the gist of it!"
+            ></AiDisclaimer>
+          </Stack>
         ) : (
           "We're processing this bill's summary right now! Check back soon."
         )}
