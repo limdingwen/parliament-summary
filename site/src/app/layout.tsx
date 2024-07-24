@@ -21,15 +21,15 @@ export const metadata: Metadata = {
 function Shell({ children }: { children: React.ReactNode }) {
   return (
     <AppShell
-      navbar={{
-        width: 300,
-        breakpoint: "sm",
-      }}
+      // navbar={{
+      //   width: 300,
+      //   breakpoint: "sm",
+      // }}
       padding="md"
     >
-      <AppShellNavbar p="md">
-        <NavbarSimple />
-      </AppShellNavbar>
+      {/*<AppShellNavbar p="md">*/}
+      {/*  <NavbarSimple />*/}
+      {/*</AppShellNavbar>*/}
 
       <AppShellMain>{children}</AppShellMain>
     </AppShell>
