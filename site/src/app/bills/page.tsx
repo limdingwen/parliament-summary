@@ -13,13 +13,21 @@ import {
 import { createClient } from "@/utils/supabase/client";
 import moment from "moment";
 import Markdown from "react-markdown";
+import Link from "next/link";
+
+export const runtime = "edge";
+
+function flipBillNo(billNo: string) {
+  const [billOfYear, year] = billNo.split("/");
+  return `${year}/${billOfYear}`;
+}
 
 async function getRecentBills() {
   const supabase = createClient();
   const { error, data } = await supabase
     .from("bill")
     .select(
-      "name, second_reading_date_type, second_reading_date, is_passed, passed_date, summary",
+      "bill_no, name, second_reading_date_type, second_reading_date, is_passed, passed_date, summary",
     )
     .order("date_introduced", { ascending: false });
   if (error) throw error;
@@ -33,7 +41,13 @@ async function RecentBills() {
         <Title>Recent Bills</Title>
 
         {(await getRecentBills()).map((bill) => (
-          <Card shadow="sm" padding="lg" radius="md" withBorder>
+          <Card
+            key={bill.bill_no}
+            shadow="sm"
+            padding="lg"
+            radius="md"
+            withBorder
+          >
             <Group justify="space-between">
               <Text fw="semibold">{bill.name}</Text>
               {bill.is_passed ? (
@@ -57,8 +71,15 @@ async function RecentBills() {
               )}
             </Text>
 
-            <Button color="blue" fullWidth mt="md" radius="md">
-              View More
+            <Button
+              color="blue"
+              fullWidth
+              mt="md"
+              radius="md"
+              component={Link}
+              href={`/bills/${flipBillNo(bill.bill_no)}`}
+            >
+              View more
             </Button>
           </Card>
         ))}
