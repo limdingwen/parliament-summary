@@ -9,10 +9,10 @@ import {
 import classes from "./NavbarSimple.module.css";
 
 const data = [
-  { link: "#", label: "Find MP", icon: IconZoom },
-  { link: "#", label: "My alerts", icon: IconBellRinging },
+  { link: "/findmp", label: "Find MP", icon: IconZoom },
+  { link: "/alerts", label: "My alerts", icon: IconBellRinging },
   { link: "/bills", label: "Bills", icon: IconGavel },
-  { link: "#", label: "Q&A", icon: IconMessage2Question },
+  { link: "/qa", label: "Q&A", icon: IconMessage2Question },
 ];
 
 export function NavbarSimple() {
@@ -33,12 +33,12 @@ export function NavbarSimple() {
       <div className={classes.navbarMain}>{links}</div>
 
       <div className={classes.footer}>
-        <a href="#" className={classes.link}>
+        <a href="/aboutus" className={classes.link}>
           <IconInfoCircle className={classes.linkIcon} stroke={1.5} />
           <span>About us</span>
         </a>
 
-        <a href="#" className={classes.link}>
+        <a href="/developer" className={classes.link}>
           <IconCodeDots className={classes.linkIcon} stroke={1.5} />
           <span>Developer</span>
         </a>
