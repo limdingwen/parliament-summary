@@ -1,5 +1,3 @@
-import { AppShell, AppShellMain } from "@mantine/core";
-
 export const runtime = "edge";
 
 export default async function FullBill({
@@ -7,9 +5,5 @@ export default async function FullBill({
 }: {
   params: { billNo: string[] };
 }) {
-  return (
-    <AppShell padding="md">
-      <AppShellMain>{JSON.stringify(params.billNo)}</AppShellMain>
-    </AppShell>
-  );
+  return <>{JSON.stringify(params.billNo)}</>;
 }

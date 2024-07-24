@@ -1,6 +1,4 @@
 import {
-  AppShell,
-  AppShellMain,
   Badge,
   Button,
   Card,
@@ -34,7 +32,7 @@ async function getRecentBills() {
   return data;
 }
 
-async function RecentBills() {
+export default async function RecentBills() {
   return (
     <Center>
       <Stack gap="md" justify="center" align="stretch" maw={800}>
@@ -85,15 +83,5 @@ async function RecentBills() {
         ))}
       </Stack>
     </Center>
-  );
-}
-
-export default async function Home() {
-  return (
-    <AppShell padding="md">
-      <AppShellMain>
-        <RecentBills />
-      </AppShellMain>
-    </AppShell>
   );
 }
