@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Group, Title, Container } from "@mantine/core";
+import { Group, Text } from "@mantine/core";
 import {
   IconBellRinging,
   IconZoom,
@@ -40,14 +40,7 @@ export function NavbarSimple() {
 
   return (
     <div className={classes.navbar}>
-      <div className={classes.navbarMain}>
-        <Group className={classes.header} justify="space-between">
-          <Container fluid>
-            <Title>ParlSum</Title>
-          </Container>
-        </Group>
-        {links}
-      </div>
+      <div className={classes.navbarMain}>{links}</div>
 
       <div className={classes.footer}>
         <a
