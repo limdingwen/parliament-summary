@@ -9,11 +9,15 @@ if (process.env.NODE_ENV === 'development') {
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  exportPathMap: function () {
-    return {
-      '/': {page: '/bills'}
-    }
-  }
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/bills',
+        permanent: false, // or false for a temporary redirect
+      },
+    ];
+  },
 };
 
 export default nextConfig;
