@@ -7,8 +7,27 @@ import StandardCard from "@/app/components/StandardCard";
 import StandardCardTitle from "@/app/components/StandardCardTitle";
 import BillSummary from "@/app/components/BillSummary";
 import BillTimeline from "@/app/components/BillTimeline";
+import { Metadata } from "next";
 
 export const runtime = "edge";
+
+const subtitle = (bill: { bill_no: string }) =>
+  `Explore the details of bill number ${bill.bill_no}.`;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { year: string; billNoOfYear: string };
+}): Promise<Metadata> {
+  const bill = await getBill(
+    buildBillNoFromBillPath(params.year, params.billNoOfYear),
+  );
+
+  return {
+    title: bill.name,
+    description: subtitle(bill),
+  };
+}
 
 function buildBillNoFromBillPath(year: string, billNoOfYear: string) {
   return `${billNoOfYear}/${year}`;
@@ -39,10 +58,7 @@ export default async function FullBill({
   return (
     <HumanFriendlyColumn>
       <StandardStack>
-        <PageTitle
-          title={bill.name}
-          subtitle={`Explore the details of bill number ${bill.bill_no}.`}
-        />
+        <PageTitle title={bill.name} subtitle={subtitle(bill)} />
 
         <BillSummary bill={bill} />
 

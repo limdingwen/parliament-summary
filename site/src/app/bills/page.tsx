@@ -3,8 +3,18 @@ import PageTitle from "@/app/components/PageTitle";
 import ShortBill from "@/app/components/ShortBill";
 import HumanFriendlyColumn from "@/app/components/HumanFriendlyColumn";
 import StandardStack from "@/app/components/StandardStack";
+import type { Metadata } from "next";
 
 export const runtime = "edge";
+
+const title = "Recent Bills";
+const subtitle =
+  "Bills, including constitutional amendments, are proposals to change Singapore's laws. A bill needs a majority to pass, while amendments require a two-thirds majority. Below are the most recent proposals.";
+
+export const metadata: Metadata = {
+  title,
+  description: subtitle,
+};
 
 async function getRecentBills() {
   const supabase = createClient();
@@ -24,10 +34,7 @@ export default async function RecentBills() {
   return (
     <HumanFriendlyColumn>
       <StandardStack>
-        <PageTitle
-          title="Recent Bills"
-          subtitle="Bills, including constitutional amendments, are proposals to change Singapore's laws. A bill needs a majority to pass, while amendments require a two-thirds majority. Below are the most recent proposals."
-        />
+        <PageTitle title={title} subtitle={subtitle} />
 
         {(await getRecentBills()).map((bill) => (
           <ShortBill key={bill.bill_no} bill={bill} />

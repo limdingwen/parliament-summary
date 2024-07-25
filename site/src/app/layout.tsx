@@ -17,7 +17,10 @@ import { NavbarSimple } from "@/app/components/NavbarSimple";
 import HumanFriendlyColumn from "@/app/components/HumanFriendlyColumn";
 
 export const metadata: Metadata = {
-  title: "Parliament Summary",
+  title: {
+    template: `%s | ${process.env.SITE_NAME}`,
+    default: process.env.SITE_NAME!,
+  },
 };
 
 function Shell({ children }: { children: React.ReactNode }) {
