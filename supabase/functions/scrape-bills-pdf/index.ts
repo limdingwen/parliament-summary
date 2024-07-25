@@ -57,7 +57,6 @@ Deno.serve(async (req) => {
     .maybeSingle();
   if (selectError) throw selectError;
   if (!row_with_null_text) {
-    console.log("No bills need PDF text scraping.");
     return buildResponse({ message: "No bills need PDF text scraping." });
   }
 

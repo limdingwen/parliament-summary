@@ -29,7 +29,6 @@ Deno.serve(async (req) => {
     .maybeSingle();
   if (selectError) throw selectError;
   if (!row_with_null_summary) {
-    console.log("No bills need summary generation.");
     return buildResponse({ message: "No bills need summary generation." });
   }
 
