@@ -25,6 +25,7 @@ Deno.serve(async (req) => {
     return buildResponse({ message: "Unauthorised." }, 401);
   }
 
+  console.log("Getting bills introduced HTML from URL...");
   const billsIntroducedUrl =
     "https://www.parliament.gov.sg/parliamentary-business/bills-introduced";
   const billsIntroducedPaginationSize = "40";
@@ -33,6 +34,7 @@ Deno.serve(async (req) => {
     body: new URLSearchParams({ PageSize: billsIntroducedPaginationSize }),
   });
 
+  console.log("Parsing the downloaded HTML...");
   const billsIntroducedHtml = await billsIntroducedResponse.text();
   const billsIntroducedDoc = new DOMParser().parseFromString(
     billsIntroducedHtml,
@@ -42,6 +44,7 @@ Deno.serve(async (req) => {
   let addCount = 0;
   let updateCount = 0;
 
+  console.log("Scraping and uploading relevant data...");
   const billsIntroduced = billsIntroducedDoc.querySelectorAll(
     ".indv-bill",
   ) as Iterable<Element>;
