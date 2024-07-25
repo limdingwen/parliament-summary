@@ -1,8 +1,8 @@
-import { createSupabase } from "./create-supabase.ts";
-import { isAdmin } from "./check-admin.ts";
-import * as pdfjs from "./lib/pdfjs/pdf.mjs";
-import * as pdfjsworker from "./lib/pdfjs/pdf.worker.mjs";
-import buildResponseProxy from "./build-response-proxy.ts";
+import { createSupabase } from "../utils/create-supabase.ts";
+import { isAdmin } from "../utils/check-admin.ts";
+import * as pdfjs from "../pdfjs/pdf.mjs";
+import * as pdfjsworker from "../pdfjs/pdf.worker.mjs";
+import buildResponseProxy from "../utils/build-response-proxy.ts";
 
 // Just a reference to force the import of the worker, otherwise it will not be included in the bundle
 // noinspection JSUnusedLocalSymbols

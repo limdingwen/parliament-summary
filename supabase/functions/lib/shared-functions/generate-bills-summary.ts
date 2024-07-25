@@ -1,7 +1,7 @@
-import { createSupabase } from "./create-supabase.ts";
-import createOpenAi from "./create-openai.ts";
-import { isAdmin } from "./check-admin.ts";
-import buildResponseProxy from "./build-response-proxy.ts";
+import { createSupabase } from "../utils/create-supabase.ts";
+import createOpenAi from "../utils/create-openai.ts";
+import { isAdmin } from "../utils/check-admin.ts";
+import buildResponseProxy from "../utils/build-response-proxy.ts";
 import { TextContentBlock } from "https://deno.land/x/openai@v4.53.0/resources/beta/threads/messages.ts";
 
 function restrictInputLength(input: string, length: number) {

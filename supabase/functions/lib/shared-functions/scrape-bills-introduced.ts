@@ -1,10 +1,10 @@
-import { createSupabase } from "./create-supabase.ts";
-import { isAdmin } from "./check-admin.ts";
+import { createSupabase } from "../utils/create-supabase.ts";
+import { isAdmin } from "../utils/check-admin.ts";
 import {
   DOMParser,
   Element,
 } from "https://deno.land/x/deno_dom@v0.1.46/deno-dom-wasm.ts";
-import buildResponseProxy from "./build-response-proxy.ts";
+import buildResponseProxy from "../utils/build-response-proxy.ts";
 
 function toIsoDate(dateString: string): string {
   const [day, month, year] = dateString.split(".");
