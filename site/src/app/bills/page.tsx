@@ -5,6 +5,11 @@ import HumanFriendlyColumn from "@/app/components/HumanFriendlyColumn";
 import StandardStack from "@/app/components/StandardStack";
 import type { Metadata } from "next";
 import StandardPagination from "@/components/StandardPagination";
+import StandardCard from "@/app/components/StandardCard";
+import StandardCardTitle from "@/app/components/StandardCardTitle";
+import StandardCardDescription from "@/app/components/StandardCardDescription";
+import StandardButton from "@/app/components/StandardButton";
+import { Group } from "@mantine/core";
 
 export const runtime = "edge";
 
@@ -59,6 +64,7 @@ export default async function RecentBills({
   const page = parseInt(searchParams.page ?? "1");
   const billCount = await getBillCount();
   const pageCount = Math.ceil(billCount / itemsPerPage);
+  const isLastPage = page === pageCount;
 
   return (
     <HumanFriendlyColumn>
@@ -68,6 +74,26 @@ export default async function RecentBills({
         {(await getRecentBills(page)).map((bill) => (
           <ShortBill key={bill.bill_no} bill={bill} />
         ))}
+
+        {isLastPage && (
+          <StandardCard>
+            <StandardCardTitle>View More Bills</StandardCardTitle>
+            <StandardCardDescription>
+              You've reached the end of our list of parliament bill summaries.
+              Due to technical constraints, we can only provide summaries for a
+              limited number of bills. To see more bills, visit the original
+              source.
+            </StandardCardDescription>
+            <Group mt="md" grow>
+              <StandardButton
+                colour="gray"
+                href="https://www.parliament.gov.sg/parliamentary-business/bills-introduced"
+              >
+                Visit original source
+              </StandardButton>
+            </Group>
+          </StandardCard>
+        )}
 
         <StandardPagination pageCount={pageCount} page={page} />
       </StandardStack>
