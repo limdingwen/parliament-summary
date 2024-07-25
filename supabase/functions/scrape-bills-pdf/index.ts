@@ -55,20 +55,26 @@ Deno.serve(async (req) => {
     .limit(1)
     .maybeSingle();
   if (selectError) throw selectError;
-  if (!row_with_null_text)
+  if (!row_with_null_text) {
+    console.log("No bills need PDF text scraping.");
     return buildResponse({ message: "No bills need PDF text scraping." });
+  }
 
+  console.log(
+    `Attempting to scrape bill from row ID ${row_with_null_text.id}...`,
+  );
   const extractedText = sanitiseText(
     await extractTextFromPdf(row_with_null_text.pdf_url),
   );
+  console.info(
+    `Text scraped from ${row_with_null_text.pdf_url}: ${extractedText}`,
+  );
+
   const { error: updateError } = await supabase
     .from("bill")
     .update({ original_text: extractedText })
     .eq("id", row_with_null_text.id);
   if (updateError) throw updateError;
-  console.info(
-    `Row ID ${row_with_null_text.id} now has text from ${row_with_null_text.pdf_url}: ${extractedText}`,
-  );
 
   return buildResponse({
     message: `Added PDF text to row ID ${row_with_null_text.id}.`,
