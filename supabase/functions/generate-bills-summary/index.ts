@@ -24,6 +24,7 @@ Deno.serve(async (req) => {
     .not("original_text", "is", null)
     .is("summary", null)
     .order("date_introduced", { ascending: false })
+    .order("bill_no", { ascending: false })
     .limit(1)
     .maybeSingle();
   if (selectError) throw selectError;

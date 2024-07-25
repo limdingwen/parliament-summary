@@ -52,6 +52,7 @@ Deno.serve(async (req) => {
     .select("id, pdf_url")
     .is("original_text", null)
     .order("date_introduced", { ascending: false })
+    .order("bill_no", { ascending: false })
     .limit(1)
     .maybeSingle();
   if (selectError) throw selectError;

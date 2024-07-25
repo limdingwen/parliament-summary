@@ -14,6 +14,7 @@ async function getRecentBills() {
       "bill_no, name, second_reading_date_type, second_reading_date, is_passed, passed_date, summary, pdf_url",
     )
     .order("date_introduced", { ascending: false })
+    .order("bill_no", { ascending: false })
     .limit(20);
   if (error) throw error;
   return data;
