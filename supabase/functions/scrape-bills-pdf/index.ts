@@ -46,10 +46,12 @@ Deno.serve(async (req) => {
     return buildResponse({ message: "Unauthorised." }, 401);
   }
 
+  // Scrape the most recent bills first because we assume they are the most important
   const { data: row_with_null_text, error: selectError } = await supabase
     .from("bill")
     .select("id, pdf_url")
     .is("original_text", null)
+    .order("date_introduced", { ascending: false })
     .limit(1)
     .maybeSingle();
   if (selectError) throw selectError;
