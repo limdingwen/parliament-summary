@@ -1,6 +1,6 @@
 export default function buildResponseProxy(data: object, status: number = 200) {
   const dataStr = JSON.stringify(data);
-  console.info(`Response ${status}: ${dataStr}`);
+  console.info(`Proxy response ${status}: ${dataStr}`);
   return {
     body: dataStr,
     init: {
