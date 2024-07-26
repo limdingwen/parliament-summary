@@ -7,16 +7,19 @@ import {
 import buildResponseProxy from "../utils/build-response-proxy.ts";
 import { format } from "https://deno.land/std@0.224.0/datetime/mod.ts";
 import { SupabaseClient } from "https://esm.sh/v135/@supabase/supabase-js@2.24.0/dist/module/index.d.ts";
+import removePrefix from "npm:remove-prefix@2.0.0";
 
 async function insertSpeech(
   supabase: SupabaseClient,
   orderNo: number,
   debateId: number,
+  speakerId: number | null,
   content: string,
 ) {
   const debateSpeechData = {
     order_no: orderNo,
     debate_id: debateId,
+    speaker_id: speakerId,
     content: content,
   };
   const { error: insertDebateSpeechError } = await supabase
@@ -123,23 +126,52 @@ export default async function scrapeSittingReport(req: Request) {
     // We insert the content buffer one last time after the loop ends to ensure that the last speech is inserted.
     // Also, beware not to insert an empty contentBuffer (e.g. if the first paragraph has a speaker's name).
     let contentBuffer = "";
+    let speakerIdBuffer: number | null = null;
     let debateSpeechOrderNo = 0;
     for (const paragraph of paragraphs) {
-      const speaker = paragraph.querySelector("strong")?.textContent;
+      const speakerNameRaw = paragraph
+        .querySelector("strong")
+        ?.textContent.trim();
+      const speakerName = speakerNameRaw
+        ? removePrefix(speakerNameRaw, "Mr ", "Ms ", "Mx ", "Dr ")[0]
+        : null;
+      console.log(`Speaker name detected: ${speakerName}`);
       const content = paragraph.textContent;
-      if (speaker && contentBuffer.trim() != "") {
-        console.log("Speaker name detected, inserting speech...");
+
+      if (speakerName && contentBuffer.trim() != "") {
+        console.log(
+          "Speaker name detected, inserting previously buffered speech...",
+        );
         await insertSpeech(
           supabase,
           debateSpeechOrderNo,
           debateId.id,
+          speakerIdBuffer,
           contentBuffer,
         );
         debateSpeechCount++;
 
         contentBuffer = "";
+        speakerIdBuffer = null;
+        debateSpeechOrderNo++;
       }
 
+      if (speakerName) {
+        const { data: speakerIdData, error: speakerIdError } = await supabase
+          .from("mp")
+          .select("id")
+          .eq("full_name", speakerName)
+          .maybeSingle();
+        if (speakerIdError) throw speakerIdError;
+        if (speakerIdData) {
+          console.log(
+            `Speaker ${speakerName} found in database as ID ${speakerIdData.id}.`,
+          );
+          speakerIdBuffer = speakerIdData.id;
+        } else {
+          console.log(`Speaker ${speakerName} not found in database.`);
+        }
+      }
       // If there's nothing, then don't insert the paragraph break
       contentBuffer += (contentBuffer == "" ? "" : "\n\n") + content;
     }
@@ -149,6 +181,7 @@ export default async function scrapeSittingReport(req: Request) {
         supabase,
         debateSpeechOrderNo,
         debateId.id,
+        speakerIdBuffer,
         contentBuffer,
       );
       debateSpeechCount++;
