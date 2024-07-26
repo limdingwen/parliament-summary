@@ -52,6 +52,7 @@ export default async function fillDebateSpeakerIds(req: Request) {
   }
 
   let rowCount = 0;
+  let potentialRowCount = 0;
 
   const debateSpeechRows = await getDebateSpeechRows(supabase);
 
@@ -67,9 +68,11 @@ export default async function fillDebateSpeakerIds(req: Request) {
       await updateDebateSpeechRowWithSpeakerId(supabase, row.id, speakerId);
       rowCount++;
     }
+
+    potentialRowCount++;
   }
 
   return buildResponseProxy({
-    message: `Filled speaker IDs for ${rowCount} debate speeches.`,
+    message: `Filled speaker IDs for ${rowCount} out of ${potentialRowCount} debate speeches.`,
   });
 }
