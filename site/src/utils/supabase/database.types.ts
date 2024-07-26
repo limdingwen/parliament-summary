@@ -107,6 +107,7 @@ export type Database = {
           id: number
           order_no: number
           speaker_id: number | null
+          speaker_name: string | null
         }
         Insert: {
           content: string
@@ -115,6 +116,7 @@ export type Database = {
           id?: number
           order_no: number
           speaker_id?: number | null
+          speaker_name?: string | null
         }
         Update: {
           content?: string
@@ -123,6 +125,7 @@ export type Database = {
           id?: number
           order_no?: number
           speaker_id?: number | null
+          speaker_name?: string | null
         }
         Relationships: [
           {
