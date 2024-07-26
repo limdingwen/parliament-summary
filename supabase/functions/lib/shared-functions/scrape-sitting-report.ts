@@ -129,14 +129,17 @@ export default async function scrapeSittingReport(req: Request) {
     let speakerIdBuffer: number | null = null;
     let debateSpeechOrderNo = 0;
     for (const paragraph of paragraphs) {
+      // Note: Trimming the raw speaker name is important, because later when we're removing the speaker name, the
+      // paragraph is already trimmed, so not trimming this might leave some whitespace which makes it not match up
       const speakerNameRaw = paragraph
         .querySelector("strong")
         ?.textContent.trim();
       const speakerName = speakerNameRaw
         ? removePrefix(speakerNameRaw, "Mr ", "Ms ", "Mx ", "Dr ")[0]
         : null;
-      console.log(`Speaker name detected: ${speakerName}`);
-      const content = paragraph.textContent;
+      if (speakerName) {
+        console.log(`Speaker name detected: ${speakerName}`);
+      }
 
       if (speakerName && contentBuffer.trim() != "") {
         console.log(
@@ -156,6 +159,7 @@ export default async function scrapeSittingReport(req: Request) {
         debateSpeechOrderNo++;
       }
 
+      let speakerNameFoundInDatabase = false;
       if (speakerName) {
         const { data: speakerIdData, error: speakerIdError } = await supabase
           .from("mp")
@@ -168,12 +172,36 @@ export default async function scrapeSittingReport(req: Request) {
             `Speaker ${speakerName} found in database as ID ${speakerIdData.id}.`,
           );
           speakerIdBuffer = speakerIdData.id;
+          speakerNameFoundInDatabase = true;
         } else {
           console.log(`Speaker ${speakerName} not found in database.`);
         }
       }
-      // If there's nothing, then don't insert the paragraph break
-      contentBuffer += (contentBuffer == "" ? "" : "\n\n") + content;
+
+      let content = paragraph.textContent.trim();
+      if (speakerNameFoundInDatabase) {
+        // Remove (probably) the speaker name from the paragraph.
+        // Note that we only remove it if it's actually found in the database,
+        // so we don't end up with completely unknown speakers.
+        const needle = `${speakerNameRaw}:`;
+        const originalContentLength = content.length;
+        console.log(
+          `Removing speaker name by replacing ${needle}" in "${content}"...`,
+        );
+        content = content.replace(needle, "").trim();
+        if (content.length == originalContentLength) {
+          console.log(
+            `Warning: Speaker name needle "${needle}" not found in paragraph "${content}". Content not changed.`,
+          );
+        }
+        console.log(`Content is now "${content}".`);
+      }
+      // If there's already text, then insert a paragraph break
+      if (contentBuffer != "") {
+        content = "\n\n" + content;
+      }
+
+      contentBuffer += content;
     }
     if (contentBuffer.trim() != "") {
       console.log("Inserting last speech...");
