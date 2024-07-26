@@ -30,7 +30,10 @@ export default async function fetchMpData(req: Request) {
     // Either insert the MP or update their data if they already exist
     const { error } = await supabase
       .from("mp")
-      .upsert(insertData, { ignoreDuplicates: false });
+      .upsert(insertData, {
+        onConflict: "wikidata_id",
+        ignoreDuplicates: false,
+      });
     if (error) throw error;
     console.log(`Inserted MP with data ${JSON.stringify(insertData)}`);
     insertedCount++;
