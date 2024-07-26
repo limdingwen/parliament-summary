@@ -59,6 +59,7 @@ export type Database = {
           bill_id: number | null
           created_at: string
           id: number
+          order_no: number
           sitting_id: number
           summary: string | null
           title: string
@@ -67,6 +68,7 @@ export type Database = {
           bill_id?: number | null
           created_at?: string
           id?: number
+          order_no: number
           sitting_id: number
           summary?: string | null
           title: string
@@ -75,6 +77,7 @@ export type Database = {
           bill_id?: number | null
           created_at?: string
           id?: number
+          order_no?: number
           sitting_id?: number
           summary?: string | null
           title?: string
@@ -102,6 +105,7 @@ export type Database = {
           created_at: string
           debate_id: number
           id: number
+          order_no: number
           speaker_id: number | null
         }
         Insert: {
@@ -109,6 +113,7 @@ export type Database = {
           created_at?: string
           debate_id: number
           id?: number
+          order_no: number
           speaker_id?: number | null
         }
         Update: {
@@ -116,6 +121,7 @@ export type Database = {
           created_at?: string
           debate_id?: number
           id?: number
+          order_no?: number
           speaker_id?: number | null
         }
         Relationships: [
@@ -140,40 +146,40 @@ export type Database = {
           created_at: string
           date_of_birth: string | null
           family_name: string | null
-          full_name: string | null
+          full_name: string
           gender: string | null
           given_name: string | null
           id: number
-          name: string | null
           party_id: number | null
           photo_url: string | null
           place_of_birth: string | null
+          wikidata_id: string
         }
         Insert: {
           created_at?: string
           date_of_birth?: string | null
           family_name?: string | null
-          full_name?: string | null
+          full_name: string
           gender?: string | null
           given_name?: string | null
           id?: number
-          name?: string | null
           party_id?: number | null
           photo_url?: string | null
           place_of_birth?: string | null
+          wikidata_id: string
         }
         Update: {
           created_at?: string
           date_of_birth?: string | null
           family_name?: string | null
-          full_name?: string | null
+          full_name?: string
           gender?: string | null
           given_name?: string | null
           id?: number
-          name?: string | null
           party_id?: number | null
           photo_url?: string | null
           place_of_birth?: string | null
+          wikidata_id?: string
         }
         Relationships: [
           {
@@ -192,6 +198,7 @@ export type Database = {
           id: number
           name: string
           photo_url: string | null
+          wikidata_id: string
         }
         Insert: {
           colour: string
@@ -199,6 +206,7 @@ export type Database = {
           id?: number
           name: string
           photo_url?: string | null
+          wikidata_id: string
         }
         Update: {
           colour?: string
@@ -206,6 +214,7 @@ export type Database = {
           id?: number
           name?: string
           photo_url?: string | null
+          wikidata_id?: string
         }
         Relationships: []
       }
@@ -248,6 +257,13 @@ export type Database = {
             referencedRelation: "sitting_date"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "sitting_info_sitting_id_fkey"
+            columns: ["sitting_date_id"]
+            isOneToOne: true
+            referencedRelation: "unscraped_sitting_dates_view"
+            referencedColumns: ["id"]
+          },
         ]
       }
       sitting_date: {
@@ -270,7 +286,14 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      unscraped_sitting_dates_view: {
+        Row: {
+          created_at: string | null
+          id: number | null
+          sitting_date: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never
