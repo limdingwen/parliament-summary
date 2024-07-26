@@ -189,7 +189,10 @@ export default async function scrapeSittingReport(req: Request) {
         content = "\n\n" + content;
       }
 
-      contentBuffer += content;
+      // Only insert if there's actually anything to insert
+      if (content.trim() != "") {
+        contentBuffer += content;
+      }
     }
     if (contentBuffer.trim() != "") {
       console.log("Inserting last speech...");
