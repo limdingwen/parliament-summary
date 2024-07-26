@@ -29,6 +29,11 @@ async function insertSpeech(
   console.log(`Inserted debate speech ${JSON.stringify(debateSpeechData)}.`);
 }
 
+function removeParagraphNumber(content: string) {
+  const pattern = /^\d+\s+/;
+  return content.replace(pattern, "").trim();
+}
+
 // Scrapes an entire sitting's report and fills out the database
 export default async function scrapeSittingReport(req: Request) {
   const supabase = createSupabase();
@@ -179,6 +184,7 @@ export default async function scrapeSittingReport(req: Request) {
       }
 
       let content = paragraph.textContent.trim();
+      content = removeParagraphNumber(content);
       if (speakerNameFoundInDatabase) {
         // Remove (probably) the speaker name from the paragraph.
         // Note that we only remove it if it's actually found in the database,
