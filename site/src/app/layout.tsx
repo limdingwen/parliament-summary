@@ -13,7 +13,6 @@ import {
   ColorSchemeScript,
   MantineProvider,
 } from "@mantine/core";
-import { NavbarSimple } from "@/app/components/NavbarSimple";
 import HumanFriendlyColumn from "@/app/components/HumanFriendlyColumn";
 
 export const metadata: Metadata = {
@@ -25,17 +24,7 @@ export const metadata: Metadata = {
 
 function Shell({ children }: { children: React.ReactNode }) {
   return (
-    <AppShell
-      // navbar={{
-      //   width: 300,
-      //   breakpoint: "sm",
-      // }}
-      padding="md"
-    >
-      {/*<AppShellNavbar p="md">*/}
-      {/*  <NavbarSimple />*/}
-      {/*</AppShellNavbar>*/}
-
+    <AppShell padding="md">
       <AppShellMain>{children}</AppShellMain>
 
       <Box mt="xl" mb="xl" component="footer">
