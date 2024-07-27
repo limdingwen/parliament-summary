@@ -3,7 +3,7 @@ import PageTitle from "@/app/components/PageTitle";
 import HumanFriendlyColumn from "@/app/components/HumanFriendlyColumn";
 import StandardStack from "@/app/components/StandardStack";
 import type { Metadata } from "next";
-import StandardPagination from "@/components/StandardPagination";
+import StandardPagination from "@/app/components/StandardPagination";
 import StandardCard from "@/app/components/StandardCard";
 import StandardCardTitle from "@/app/components/StandardCardTitle";
 import StandardCardDescription from "@/app/components/StandardCardDescription";
