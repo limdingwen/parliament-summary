@@ -4,6 +4,12 @@ import StandardCardDescription from "@/app/components/StandardCardDescription";
 import Markdown from "react-markdown";
 import React from "react";
 
+function formatProcText(content: string) {
+  return content
+    .replaceAll("[(proc text) ", "*")
+    .replaceAll(" (proc text)]", "*");
+}
+
 export default function DebateSummary({
   debateSpeech,
 }: {
@@ -15,7 +21,7 @@ export default function DebateSummary({
         <StandardCardTitle>{debateSpeech.speaker_name}</StandardCardTitle>
       )}
       <StandardCardDescription>
-        <Markdown>{debateSpeech.content}</Markdown>
+        <Markdown>{formatProcText(debateSpeech.content)}</Markdown>
       </StandardCardDescription>
     </StandardCard>
   );
