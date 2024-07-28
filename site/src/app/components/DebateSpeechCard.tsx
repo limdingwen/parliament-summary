@@ -3,6 +3,7 @@ import StandardCardTitle from "@/app/components/StandardCardTitle";
 import StandardCardDescription from "@/app/components/StandardCardDescription";
 import Markdown from "react-markdown";
 import React from "react";
+import { Text } from "@mantine/core";
 
 function formatProcText(content: string) {
   return content
@@ -17,12 +18,18 @@ export default function DebateSummary({
 }) {
   return (
     <StandardCard>
-      {debateSpeech.speaker_name && (
-        <StandardCardTitle>{debateSpeech.speaker_name}</StandardCardTitle>
+      {debateSpeech.speaker_name ? (
+        <>
+          <StandardCardTitle>{debateSpeech.speaker_name}</StandardCardTitle>
+          <StandardCardDescription>
+            <Markdown>{formatProcText(debateSpeech.content)}</Markdown>
+          </StandardCardDescription>
+        </>
+      ) : (
+        <Text size="sm" component="div">
+          <Markdown>{formatProcText(debateSpeech.content)}</Markdown>
+        </Text>
       )}
-      <StandardCardDescription>
-        <Markdown>{formatProcText(debateSpeech.content)}</Markdown>
-      </StandardCardDescription>
     </StandardCard>
   );
 }
