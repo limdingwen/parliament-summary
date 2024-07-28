@@ -82,10 +82,10 @@ export default async function RecentDebates({
           <StandardCard>
             <StandardCardTitle>View More Debates</StandardCardTitle>
             <StandardCardDescription>
-              You've reached the end of our list of parliament debate summaries.
-              Due to technical constraints, we can only provide summaries for a
-              limited number of debates. To see more debates, visit the original
-              source.
+              You&apos;ve reached the end of our list of parliament debate
+              summaries. Due to technical constraints, we can only provide
+              summaries for a limited number of debates. To see more debates,
+              visit the original source.
             </StandardCardDescription>
             <Group mt="md" grow>
               <StandardButton

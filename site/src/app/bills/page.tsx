@@ -79,10 +79,10 @@ export default async function RecentBills({
           <StandardCard>
             <StandardCardTitle>View More Bills</StandardCardTitle>
             <StandardCardDescription>
-              You've reached the end of our list of parliament bill summaries.
-              Due to technical constraints, we can only provide summaries for a
-              limited number of bills. To see more bills, visit the original
-              source.
+              You&apos;ve reached the end of our list of parliament bill
+              summaries. Due to technical constraints, we can only provide
+              summaries for a limited number of bills. To see more bills, visit
+              the original source.
             </StandardCardDescription>
             <Group mt="md" grow>
               <StandardButton
