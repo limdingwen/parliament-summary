@@ -7,6 +7,7 @@ import { Metadata } from "next";
 import moment from "moment";
 import DebateSummary from "@/app/components/DebateSummary";
 import DebateSpeechCard from "@/app/components/DebateSpeechCard";
+import { Title } from "@mantine/core";
 
 export const runtime = "edge";
 
@@ -64,6 +65,10 @@ export default async function FullBill({
         <PageTitle title={debate.title} subtitle={subtitle(debate)} />
 
         <DebateSummary debate={debate} />
+
+        <Title mt="xl" order={2}>
+          Full Transcript
+        </Title>
 
         {debateSpeeches.map((debateSpeech, index) => (
           <DebateSpeechCard key={index} debateSpeech={debateSpeech} />
