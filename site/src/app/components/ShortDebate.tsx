@@ -7,6 +7,7 @@ import SummaryAiDisclaimer from "@/app/components/SummaryAiDisclaimer";
 import SummaryNotAvailableApology from "@/app/components/SummaryNotAvailableApology";
 import StandardButton from "@/app/components/StandardButton";
 import StandardCard from "@/app/components/StandardCard";
+import StandardCardSubtitle from "@/app/components/StandardCardSubtitle";
 
 export default function ShortDebate({
   debate,
@@ -28,11 +29,11 @@ export default function ShortDebate({
         <StandardCardTitle>{debate.title}</StandardCardTitle>
       </Group>
 
-      <StandardCardDescription>
+      <StandardCardSubtitle>
         {moment(debate.sitting!.sitting_date!.sitting_date).format(
           "D MMM YYYY",
         )}
-      </StandardCardDescription>
+      </StandardCardSubtitle>
 
       <StandardCardDescription>
         {debate.summary ? (
