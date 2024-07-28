@@ -22,7 +22,12 @@ type PageLink = {
 
 function generateButtonsFromLinks(links: PageLink[]) {
   return links.map(({ name, href }) => (
-    <UnstyledButton className={classes.control} component={Link} href={href}>
+    <UnstyledButton
+      key={href}
+      className={classes.control}
+      component={Link}
+      href={href}
+    >
       {name}
     </UnstyledButton>
   ));
