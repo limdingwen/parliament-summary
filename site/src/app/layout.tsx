@@ -10,8 +10,8 @@ import StandardShell from "@/app/components/StandardShell";
 
 export const metadata: Metadata = {
   title: {
-    template: `%s | ${process.env.SITE_NAME}`,
-    default: process.env.SITE_NAME!,
+    template: `%s | ${process.env.NEXT_PUBLIC_SITE_NAME}`,
+    default: process.env.NEXT_PUBLIC_SITE_NAME!,
   },
 };
 

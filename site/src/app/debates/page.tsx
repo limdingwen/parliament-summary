@@ -17,7 +17,7 @@ const title = "Recent Debates";
 const subtitle =
   "Explore the latest parliamentary debates, where Members of Parliament discuss key issues and proposed legislation in detail. Stay informed about the topics shaping Singapore's laws and policies, and access the official records in the Hansard.";
 
-const itemsPerPage = parseInt(process.env.ITEMS_PER_PAGE!);
+const itemsPerPage = parseInt(process.env.NEXT_PUBLIC_ITEMS_PER_PAGE!);
 
 export const metadata: Metadata = {
   title,

@@ -17,7 +17,7 @@ const title = "Recent Bills";
 const subtitle =
   "Bills, including constitutional amendments, are proposals to change Singapore's laws. A bill needs a majority to pass, while amendments require a two-thirds majority. Below are the most recent proposals.";
 
-const itemsPerPage = parseInt(process.env.ITEMS_PER_PAGE!);
+const itemsPerPage = parseInt(process.env.NEXT_PUBLIC_ITEMS_PER_PAGE!);
 
 export const metadata: Metadata = {
   title,
