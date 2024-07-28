@@ -9,6 +9,7 @@ import StandardCardTitle from "@/app/components/StandardCardTitle";
 import StandardCardDescription from "@/app/components/StandardCardDescription";
 import StandardButton from "@/app/components/StandardButton";
 import { Group } from "@mantine/core";
+import ShortDebate from "@/app/components/ShortDebate";
 
 export const runtime = "edge";
 
@@ -33,9 +34,16 @@ function calculatePaginationOffset(page: number) {
 async function getRecentDebates(page: number) {
   const supabase = createClient();
   const [first, last] = calculatePaginationOffset(page);
-  const { error, data } = await supabase
+  const { data, error } = await supabase
     .from("debate")
-    .select("title")
+    .select(
+      "id, title, order_no, summary, sitting ( sitting_date ( sitting_date ) )",
+    )
+    .order("sitting_date", {
+      ascending: false,
+      referencedTable: "sitting.sitting_date",
+    })
+    .order("order_no", { ascending: false })
     .range(first, last);
   if (error) throw error;
   return data;
@@ -67,10 +75,7 @@ export default async function RecentDebates({
         <PageTitle title={title} subtitle={subtitle} />
 
         {(await getRecentDebates(page)).map((debate) => (
-          <StandardCard>
-            <StandardCardTitle>{debate.title}</StandardCardTitle>
-            <StandardCardDescription>Hello world</StandardCardDescription>
-          </StandardCard>
+          <ShortDebate key={debate.id} debate={debate} />
         ))}
 
         {isLastPage && (
