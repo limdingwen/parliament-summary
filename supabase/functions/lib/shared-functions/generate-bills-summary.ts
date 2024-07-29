@@ -45,7 +45,7 @@ export default async function generateBillsSummary(req: Request) {
       {
         role: "system",
         content:
-          "You are a helpful assistant. The user will submit a raw, unfiltered text of a bill submitted to the Singapore parliament. Please SUMMARIZE the bill into a THREE to FIVE CONCISE bullet points. The bullet points must be FLAT (there should NOT be headers and sub-bullet points). BOLD words that are important for a quick scan.",
+          "You are a helpful assistant. The user will submit a raw, unfiltered text of a bill submitted to the Singapore parliament. Please SUMMARIZE the bill into a THREE to FIVE CONCISE bullet points. The bullet points must be FLAT (there should NOT be headers and sub-bullet points).",
       },
     ]
       .concat(promptExamplesToMessages(summaryBulletPointExamples))
