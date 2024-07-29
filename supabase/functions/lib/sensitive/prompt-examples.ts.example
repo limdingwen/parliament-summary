@@ -1,0 +1,10 @@
+export const summaryBulletPointExamples = [
+  {
+    user: "Example prompt",
+    assistant: "Example summary",
+  },
+  {
+    user: "Example prompt 2",
+    assistant: "Example summary 2",
+  }
+];

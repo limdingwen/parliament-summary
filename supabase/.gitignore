@@ -1,1 +1,2 @@
 *.js
+functions/lib/sensitive/*.ts

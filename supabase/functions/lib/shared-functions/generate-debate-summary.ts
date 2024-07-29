@@ -2,8 +2,14 @@ import { createSupabase } from "../utils/create-supabase.ts";
 import createOpenAi from "../utils/create-openai.ts";
 import { isAdmin } from "../utils/check-admin.ts";
 import buildResponseProxy from "../utils/build-response-proxy.ts";
-import { TextContentBlock } from "https://deno.land/x/openai@v4.53.0/resources/beta/threads/messages.ts";
 import { SupabaseClient } from "https://esm.sh/v135/@supabase/supabase-js@2.24.0/dist/module/index.d.ts";
+import promptExamplesToMessages from "../utils/prompt-examples-to-messages.ts";
+import { summaryBulletPointExamples } from "../sensitive/prompt-examples.ts";
+import {
+  ChatCompletionAssistantMessageParam,
+  ChatCompletionSystemMessageParam,
+  ChatCompletionUserMessageParam,
+} from "https://deno.land/x/openai@v4.53.0/resources/chat/completions.ts";
 
 function restrictInputLength(input: string, length: number) {
   return input.length <= length ? input : input.substring(0, length);
@@ -66,39 +72,39 @@ export default async function generateDebateSummary(req: Request) {
   console.log(
     `Attempting to generate summary for debate from row ID ${debate.id}...`,
   );
-  const run = await openai.beta.threads.createAndRunPoll({
-    assistant_id: Deno.env.get("OPENAI_DEBATE_SUMMARY_ASSISTANT_ID")!,
-    thread: {
-      messages: [
+  const response = await openai.chat.completions.create({
+    messages: [
+      {
+        role: "system",
+        content:
+          "You are a helpful assistant. The user will submit a raw, unfiltered text of a debate from the Singapore parliament. Please SUMMARIZE the debate into a THREE to FIVE CONCISE bullet points. The bullet points must be FLAT (there should NOT be headers and sub-bullet points).",
+      },
+    ]
+      .concat(promptExamplesToMessages(summaryBulletPointExamples))
+      .concat([
         {
           role: "user",
           // The input length limit is 256,000 characters for GPT 4o mini, independent of the token limit
           content: restrictInputLength(debateSpeechInput, 256000),
         },
-      ],
-    },
+      ]) as (
+      | ChatCompletionAssistantMessageParam
+      | ChatCompletionUserMessageParam
+      | ChatCompletionSystemMessageParam
+    )[],
+    model: "gpt-4o-mini",
   });
 
-  if (run.status == "completed") {
-    const responses = await openai.beta.threads.messages.list(run.thread_id, {
-      run_id: run.id,
-    });
-    const summary = (responses.data[0].content[0] as TextContentBlock).text
-      .value;
-    console.log(`Summary generated: ${summary}`);
+  const summary = response.choices[0].message.content;
+  console.log(`Summary generated: ${summary}`);
 
-    const { error: updateError } = await supabase
-      .from("debate")
-      .update({ summary })
-      .eq("id", debate.id);
-    if (updateError) throw updateError;
+  const { error: updateError } = await supabase
+    .from("debate")
+    .update({ summary })
+    .eq("id", debate.id);
+  if (updateError) throw updateError;
 
-    return buildResponseProxy({
-      message: `Added generated summary to row ID ${debate.id}.`,
-    });
-  } else {
-    throw new Error(
-      `Summary generation failed. The run dump is as follows: ${JSON.stringify(run)}`,
-    );
-  }
+  return buildResponseProxy({
+    message: `Added generated summary to row ID ${debate.id}.`,
+  });
 }
