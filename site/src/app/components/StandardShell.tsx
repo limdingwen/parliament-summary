@@ -20,13 +20,14 @@ type PageLink = {
   href: string;
 };
 
-function generateButtonsFromLinks(links: PageLink[]) {
+function generateButtonsFromLinks(links: PageLink[], closeNavbar: () => void) {
   return links.map(({ name, href }) => (
     <UnstyledButton
       key={href}
       className={classes.control}
       component={Link}
       href={href}
+      onClick={closeNavbar}
     >
       {name}
     </UnstyledButton>
@@ -42,9 +43,9 @@ export default function StandardShell({
   logo: React.ReactNode;
   links: PageLink[];
 }) {
-  const [opened, { toggle }] = useDisclosure();
+  const [opened, { toggle, close }] = useDisclosure();
   const pinned = useHeadroom({ fixedAt: 120 });
-  const generatedButtons = generateButtonsFromLinks(links);
+  const generatedButtons = generateButtonsFromLinks(links, close);
 
   return (
     <AppShell
