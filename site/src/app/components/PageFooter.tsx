@@ -4,7 +4,6 @@ import StandardCardDescription from "./StandardCardDescription";
 import StandardCardTitle from "./StandardCardTitle";
 import StandardCard from "./StandardCard";
 import React from "react";
-import StandardStack from "@/app/components/StandardStack";
 
 export default function PageFooter() {
   return (
