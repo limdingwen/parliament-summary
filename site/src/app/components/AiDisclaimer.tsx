@@ -15,6 +15,7 @@ export default function AiDisclaimer({
         multiline
         withArrow
         transitionProps={{ duration: 200 }}
+        events={{ hover: true, focus: false, touch: true }}
         w={200}
       >
         <IconRobot />
