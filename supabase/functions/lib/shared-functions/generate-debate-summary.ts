@@ -77,7 +77,7 @@ export default async function generateDebateSummary(req: Request) {
       {
         role: "system",
         content:
-          "You are a helpful assistant. The user will submit a raw, unfiltered text of a debate from the Singapore parliament. Please SUMMARIZE the debate into a THREE to FIVE CONCISE bullet points. The bullet points must be FLAT (there should NOT be headers and sub-bullet points).",
+          "You are a helpful assistant. The user will submit a raw, unfiltered text of a debate from the Singapore parliament. Please SUMMARIZE the debate into a THREE to FIVE CONCISE bullet points. The bullet points must be FLAT (there should NOT be headers and sub-bullet points). BOLD words that are important for a quick scan.",
       },
     ]
       .concat(promptExamplesToMessages(summaryBulletPointExamples))
