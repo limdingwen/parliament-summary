@@ -4,6 +4,7 @@ import StandardCardDescription from "@/app/components/StandardCardDescription";
 import Markdown from "react-markdown";
 import React from "react";
 import { Text } from "@mantine/core";
+import StandardMarkdown from "./StandardMarkdown";
 
 function formatProcText(content: string) {
   return content
@@ -27,7 +28,9 @@ export default function DebateSummary({
         </>
       ) : (
         <Text size="sm" component="div">
-          <Markdown>{formatProcText(debateSpeech.content)}</Markdown>
+          <StandardMarkdown>
+            {formatProcText(debateSpeech.content)}
+          </StandardMarkdown>
         </Text>
       )}
     </StandardCard>

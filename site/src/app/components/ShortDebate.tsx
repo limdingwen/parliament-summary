@@ -2,12 +2,12 @@ import { Group, Stack } from "@mantine/core";
 import StandardCardTitle from "@/app/components/StandardCardTitle";
 import moment from "moment";
 import StandardCardDescription from "@/app/components/StandardCardDescription";
-import Markdown from "react-markdown";
 import SummaryAiDisclaimer from "@/app/components/SummaryAiDisclaimer";
 import SummaryNotAvailableApology from "@/app/components/SummaryNotAvailableApology";
 import StandardButton from "@/app/components/StandardButton";
 import StandardCard from "@/app/components/StandardCard";
 import StandardCardSubtitle from "@/app/components/StandardCardSubtitle";
+import StandardMarkdown from "@/app/components/StandardMarkdown";
 
 export default function ShortDebate({
   debate,
@@ -38,7 +38,7 @@ export default function ShortDebate({
       <StandardCardDescription>
         {debate.summary ? (
           <Stack>
-            <Markdown>{debate.summary}</Markdown>
+            <StandardMarkdown>{debate.summary}</StandardMarkdown>
             <SummaryAiDisclaimer />
           </Stack>
         ) : (

@@ -2,10 +2,10 @@ import StandardCard from "@/app/components/StandardCard";
 import StandardCardTitle from "@/app/components/StandardCardTitle";
 import StandardCardDescription from "@/app/components/StandardCardDescription";
 import { Stack } from "@mantine/core";
-import Markdown from "react-markdown";
 import SummaryAiDisclaimer from "@/app/components/SummaryAiDisclaimer";
 import SummaryNotAvailableApology from "@/app/components/SummaryNotAvailableApology";
 import React from "react";
+import StandardMarkdown from "@/app/components/StandardMarkdown";
 
 export default function DebateSummary({
   debate,
@@ -19,7 +19,7 @@ export default function DebateSummary({
       <StandardCardDescription>
         {debate.summary ? (
           <Stack>
-            <Markdown>{debate.summary}</Markdown>
+            <StandardMarkdown>{debate.summary}</StandardMarkdown>
             <SummaryAiDisclaimer />
           </Stack>
         ) : (
