@@ -35,14 +35,9 @@ async function getRecentDebates(page: number) {
   const supabase = createClient();
   const [first, last] = calculatePaginationOffset(page);
   const { data, error } = await supabase
-    .from("debate")
-    .select(
-      "id, title, order_no, summary, sitting ( sitting_date ( sitting_date ) )",
-    )
-    .order("sitting_date", {
-      ascending: false,
-      referencedTable: "sitting.sitting_date",
-    })
+    .from("debate_sortable_view")
+    .select("id, title, order_no, summary, sitting_date")
+    .order("sitting_date", { ascending: false })
     .order("order_no", { ascending: false })
     .range(first, last);
   if (error) throw error;

@@ -13,14 +13,11 @@ export default function ShortDebate({
   debate,
 }: {
   debate: {
-    id: number;
-    title: string;
+    id: number | null;
+    title: string | null;
     summary: string | null;
-    sitting: {
-      sitting_date: {
-        sitting_date: string;
-      } | null;
-    } | null;
+    order_no: number | null;
+    sitting_date: string | null;
   };
 }) {
   return (
@@ -30,9 +27,7 @@ export default function ShortDebate({
       </Group>
 
       <StandardCardSubtitle>
-        {moment(debate.sitting!.sitting_date!.sitting_date).format(
-          "D MMM YYYY",
-        )}
+        {moment(debate.sitting_date).format("D MMM YYYY")}
       </StandardCardSubtitle>
 
       <StandardCardDescription>
@@ -52,7 +47,7 @@ export default function ShortDebate({
         </StandardButton>
         <StandardButton
           colour="gray"
-          href={`https://sprs.parl.gov.sg/search/#/fullreport?sittingdate=${moment(debate.sitting!.sitting_date!.sitting_date).format("DD-MM-YYYY")}`}
+          href={`https://sprs.parl.gov.sg/search/#/fullreport?sittingdate=${moment(debate.sitting_date).format("DD-MM-YYYY")}`}
         >
           Original source
         </StandardButton>

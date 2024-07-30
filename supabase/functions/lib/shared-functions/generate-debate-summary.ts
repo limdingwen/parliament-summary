@@ -18,13 +18,10 @@ function restrictInputLength(input: string, length: number) {
 async function getDebateNeedingSummary(supabase: SupabaseClient) {
   // Generate the summary for the most recent debates first because we assume they are the most important
   const { data, error } = await supabase
-    .from("debate")
-    .select("id, order_no, summary, sitting ( sitting_date ( sitting_date ) )")
+    .from("debate_sortable_view")
+    .select("id, order_no, summary, sitting_date")
     .is("summary", null)
-    .order("sitting_date", {
-      ascending: false,
-      referencedTable: "sitting.sitting_date",
-    })
+    .order("sitting_date", { ascending: false })
     .order("order_no", { ascending: false })
     .limit(1)
     .maybeSingle();

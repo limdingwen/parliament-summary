@@ -23,6 +23,7 @@ export type Database = {
           second_reading_date: string | null
           second_reading_date_type: string
           summary: string | null
+          summary_backup: string | null
         }
         Insert: {
           bill_no: string
@@ -37,6 +38,7 @@ export type Database = {
           second_reading_date?: string | null
           second_reading_date_type: string
           summary?: string | null
+          summary_backup?: string | null
         }
         Update: {
           bill_no?: string
@@ -51,6 +53,7 @@ export type Database = {
           second_reading_date?: string | null
           second_reading_date_type?: string
           summary?: string | null
+          summary_backup?: string | null
         }
         Relationships: []
       }
@@ -62,6 +65,7 @@ export type Database = {
           order_no: number
           sitting_id: number
           summary: string | null
+          summary_backup: string | null
           title: string
         }
         Insert: {
@@ -71,6 +75,7 @@ export type Database = {
           order_no: number
           sitting_id: number
           summary?: string | null
+          summary_backup?: string | null
           title: string
         }
         Update: {
@@ -80,6 +85,7 @@ export type Database = {
           order_no?: number
           sitting_id?: number
           summary?: string | null
+          summary_backup?: string | null
           title?: string
         }
         Relationships: [
@@ -136,6 +142,20 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "debate_speech_debate_id_fkey"
+            columns: ["debate_id"]
+            isOneToOne: false
+            referencedRelation: "debate_sortable_view"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "debate_speech_speaker_id_fkey"
+            columns: ["speaker_id"]
+            isOneToOne: false
+            referencedRelation: "combined_mp_names_view"
+            referencedColumns: ["mp_id"]
+          },
+          {
             foreignKeyName: "debate_speech_speaker_id_fkey"
             columns: ["speaker_id"]
             isOneToOne: false
@@ -190,6 +210,42 @@ export type Database = {
             columns: ["party_id"]
             isOneToOne: false
             referencedRelation: "party"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mp_aliases: {
+        Row: {
+          alias_name: string
+          created_at: string
+          id: number
+          mp_id: number
+        }
+        Insert: {
+          alias_name: string
+          created_at?: string
+          id?: number
+          mp_id: number
+        }
+        Update: {
+          alias_name?: string
+          created_at?: string
+          id?: number
+          mp_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mp_aliases_mp_id_fkey"
+            columns: ["mp_id"]
+            isOneToOne: false
+            referencedRelation: "combined_mp_names_view"
+            referencedColumns: ["mp_id"]
+          },
+          {
+            foreignKeyName: "mp_aliases_mp_id_fkey"
+            columns: ["mp_id"]
+            isOneToOne: false
+            referencedRelation: "mp"
             referencedColumns: ["id"]
           },
         ]
@@ -289,6 +345,24 @@ export type Database = {
       }
     }
     Views: {
+      combined_mp_names_view: {
+        Row: {
+          alias_name: string | null
+          full_name: string | null
+          mp_id: number | null
+        }
+        Relationships: []
+      }
+      debate_sortable_view: {
+        Row: {
+          id: number | null
+          order_no: number | null
+          sitting_date: string | null
+          summary: string | null
+          title: string | null
+        }
+        Relationships: []
+      }
       unscraped_sitting_dates_view: {
         Row: {
           created_at: string | null
