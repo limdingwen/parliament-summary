@@ -46,6 +46,7 @@ export default async function scrapeSittingReport(req: Request) {
   const { data: unscrapedDateData, error: unscrapedDateError } = await supabase
     .from("unscraped_sitting_dates_view")
     .select("id, sitting_date")
+    .order("sitting_date", { ascending: false })
     .limit(1)
     .maybeSingle();
   if (unscrapedDateError) throw unscrapedDateError;
