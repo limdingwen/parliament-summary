@@ -32,7 +32,7 @@ async function getDebateSearchResults(
   if (error) throw error;
   const dedupData = removeDuplicates(data, "debate_id");
   return dedupData.map((debate) => ({
-    href: `/debate/${debate.debate_id}`,
+    href: `/debates/${debate.debate_id}`,
     title: debate.title,
   }));
 }
@@ -53,7 +53,7 @@ async function getBillSearchResults(
   if (error) throw error;
   const dedupData = removeDuplicates(data, "bill_no");
   return dedupData.map((bill) => ({
-    href: `/bill/${flipBillNo(bill.bill_no)}`,
+    href: `/bills/${flipBillNo(bill.bill_no)}`,
     title: bill.name,
   }));
 }
