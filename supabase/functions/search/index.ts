@@ -2,6 +2,7 @@ import "https://esm.sh/@supabase/functions-js/src/edge-runtime.d.ts";
 import { createSupabase } from "../lib/utils/create-supabase.ts";
 import { SupabaseClient } from "https://esm.sh/v135/@supabase/supabase-js@2.24.0/dist/module/index.d.ts";
 import { buildResponse } from "../lib/utils/build-response.ts";
+import { corsHeaders } from "../lib/utils/cors.ts";
 
 type ClientFriendlyData = {
   href: string;
@@ -58,6 +59,10 @@ async function getBillSearchResults(
 }
 
 Deno.serve(async (req) => {
+  if (req.method === "OPTIONS") {
+    return new Response("ok", { headers: corsHeaders });
+  }
+
   const supabase = createSupabase();
 
   const { query } = await req.json();
