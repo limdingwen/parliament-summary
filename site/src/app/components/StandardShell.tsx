@@ -14,6 +14,8 @@ import { useDisclosure, useHeadroom } from "@mantine/hooks";
 import classes from "./StandardShell.module.css";
 import PageFooter from "@/app/components/PageFooter";
 import Link from "next/link";
+import { spotlight } from "@mantine/spotlight";
+import SearchSpotlight from "@/app/components/SearchSpotlight";
 
 type PageLink = {
   name: string;
@@ -21,17 +23,30 @@ type PageLink = {
 };
 
 function generateButtonsFromLinks(links: PageLink[], closeNavbar: () => void) {
-  return links.map(({ name, href }) => (
-    <UnstyledButton
-      key={href}
-      className={classes.control}
-      component={Link}
-      href={href}
-      onClick={closeNavbar}
-    >
-      {name}
-    </UnstyledButton>
-  ));
+  return (
+    <>
+      <UnstyledButton
+        className={classes.control}
+        onClick={() => {
+          closeNavbar();
+          spotlight.open();
+        }}
+      >
+        Search
+      </UnstyledButton>
+      {links.map(({ name, href }) => (
+        <UnstyledButton
+          key={href}
+          className={classes.control}
+          component={Link}
+          href={href}
+          onClick={closeNavbar}
+        >
+          {name}
+        </UnstyledButton>
+      ))}
+    </>
+  );
 }
 
 export default function StandardShell({
@@ -78,6 +93,9 @@ export default function StandardShell({
       </AppShellMain>
 
       <PageFooter />
+
+      {/* I think this can be anywhere since it's a modal */}
+      <SearchSpotlight />
     </AppShell>
   );
 }

@@ -5,6 +5,7 @@ import "./globals.css";
 // Import styles of packages that you've installed.
 // All packages except `@mantine/hooks` require styles imports
 import "@mantine/core/styles.css";
+import "@mantine/spotlight/styles.css";
 import { ColorSchemeScript, MantineProvider, Text } from "@mantine/core";
 import StandardShell from "@/app/components/StandardShell";
 
