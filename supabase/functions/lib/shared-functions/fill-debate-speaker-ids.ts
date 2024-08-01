@@ -23,11 +23,7 @@ async function fetchSpeakerIdWithSpeakerName(
     .limit(1)
     .maybeSingle();
   if (error) throw error;
-
-  const result = data ? data.mp_id : null;
-  console.log(`Found speaker ID for ${speakerName}: ${result}`);
-
-  return result;
+  return data ? data.mp_id : null;
 }
 
 async function updateDebateSpeechRowWithSpeakerId(
