@@ -13,13 +13,13 @@ async function insertSpeech(
   supabase: SupabaseClient,
   orderNo: number,
   debateId: number,
-  speakerId: number | null,
+  speakerName: string | null,
   content: string,
 ) {
   const debateSpeechData = {
     order_no: orderNo,
     debate_id: debateId,
-    speaker_id: speakerId,
+    speaker_name: speakerName,
     content: content,
   };
   const { error: insertDebateSpeechError } = await supabase
@@ -46,6 +46,7 @@ export default async function scrapeSittingReport(req: Request) {
   const { data: unscrapedDateData, error: unscrapedDateError } = await supabase
     .from("unscraped_sitting_dates_view")
     .select("id, sitting_date")
+    .order("sitting_date", { ascending: false })
     .limit(1)
     .maybeSingle();
   if (unscrapedDateError) throw unscrapedDateError;
@@ -131,7 +132,7 @@ export default async function scrapeSittingReport(req: Request) {
     // We insert the content buffer one last time after the loop ends to ensure that the last speech is inserted.
     // Also, beware not to insert an empty contentBuffer (e.g. if the first paragraph has a speaker's name).
     let contentBuffer = "";
-    let speakerIdBuffer: number | null = null;
+    let speakerNameBuffer: string | null = null;
     let debateSpeechOrderNo = 0;
     for (const paragraph of paragraphs) {
       // Note: Trimming the raw speaker name is important, because later when we're removing the speaker name, the
@@ -154,41 +155,23 @@ export default async function scrapeSittingReport(req: Request) {
           supabase,
           debateSpeechOrderNo,
           debateId.id,
-          speakerIdBuffer,
+          speakerNameBuffer,
           contentBuffer,
         );
         debateSpeechCount++;
 
         contentBuffer = "";
-        speakerIdBuffer = null;
         debateSpeechOrderNo++;
       }
 
-      let speakerNameFoundInDatabase = false;
       if (speakerName) {
-        const { data: speakerIdData, error: speakerIdError } = await supabase
-          .from("mp")
-          .select("id")
-          .eq("full_name", speakerName)
-          .maybeSingle();
-        if (speakerIdError) throw speakerIdError;
-        if (speakerIdData) {
-          console.log(
-            `Speaker ${speakerName} found in database as ID ${speakerIdData.id}.`,
-          );
-          speakerIdBuffer = speakerIdData.id;
-          speakerNameFoundInDatabase = true;
-        } else {
-          console.log(`Speaker ${speakerName} not found in database.`);
-        }
+        speakerNameBuffer = speakerName;
       }
 
       let content = paragraph.textContent.trim();
       content = removeParagraphNumber(content);
-      if (speakerNameFoundInDatabase) {
-        // Remove (probably) the speaker name from the paragraph.
-        // Note that we only remove it if it's actually found in the database,
-        // so we don't end up with completely unknown speakers.
+      if (speakerName) {
+        // Remove (probably) the speaker name from the paragraph
         const needle = `${speakerNameRaw}:`;
         const originalContentLength = content.length;
         console.log(
@@ -207,7 +190,10 @@ export default async function scrapeSittingReport(req: Request) {
         content = "\n\n" + content;
       }
 
-      contentBuffer += content;
+      // Only insert if there's actually anything to insert
+      if (content.trim() != "") {
+        contentBuffer += content;
+      }
     }
     if (contentBuffer.trim() != "") {
       console.log("Inserting last speech...");
@@ -215,7 +201,7 @@ export default async function scrapeSittingReport(req: Request) {
         supabase,
         debateSpeechOrderNo,
         debateId.id,
-        speakerIdBuffer,
+        speakerNameBuffer,
         contentBuffer,
       );
       debateSpeechCount++;

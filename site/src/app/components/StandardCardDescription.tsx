@@ -7,7 +7,7 @@ export default function StandardCardDescription({
   children: React.ReactNode;
 }) {
   return (
-    <Text mt="xs" size="sm" c="dimmed" component="div">
+    <Text mt="xs" size="sm" component="div">
       {children}
     </Text>
   );

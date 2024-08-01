@@ -35,11 +35,12 @@
     "dayjs": "^1.11.12",
     "embla-carousel-react": "^8.1.7",
     "moment": "^2.30.1",
-    "next": "14.1.0",
+    "next": "^14.2.5",
     "react": "^18",
     "react-dom": "^18",
     "react-markdown": "^9.0.1",
-    "recharts": "^2.12.7"
+    "recharts": "^2.12.7",
+    "use-debounce": "^10.0.2"
   },
   "devDependencies": {
     "@cloudflare/next-on-pages": "^1.12.1",
@@ -56,7 +57,7 @@
     "postcss-simple-vars": "^7.0.1",
     "tailwindcss": "^3.3.0",
     "typescript": "^5",
-    "vercel": "^35.1.0",
+    "vercel": "^32.3.0",
     "wrangler": "^3.65.1"
   }
 }

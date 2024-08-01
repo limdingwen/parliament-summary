@@ -1,6 +1,5 @@
 import { Badge, Group, Stack } from "@mantine/core";
 import moment from "moment/moment";
-import Markdown from "react-markdown";
 import SummaryAiDisclaimer from "@/app/components/SummaryAiDisclaimer";
 import StandardCard from "@/app/components/StandardCard";
 import StandardCardTitle from "@/app/components/StandardCardTitle";
@@ -8,6 +7,7 @@ import StandardCardDescription from "@/app/components/StandardCardDescription";
 import SummaryNotAvailableApology from "@/app/components/SummaryNotAvailableApology";
 import StandardButton from "@/app/components/StandardButton";
 import BillOriginalPdfButton from "@/app/components/BillOriginalPdfButton";
+import StandardMarkdown from "./StandardMarkdown";
 
 function flipBillNo(billNo: string) {
   const [billOfYear, year] = billNo.split("/");
@@ -47,7 +47,7 @@ export default async function ShortBill({
       <StandardCardDescription>
         {bill.summary ? (
           <Stack>
-            <Markdown>{bill.summary}</Markdown>
+            <StandardMarkdown>{bill.summary}</StandardMarkdown>
             <SummaryAiDisclaimer />
           </Stack>
         ) : (

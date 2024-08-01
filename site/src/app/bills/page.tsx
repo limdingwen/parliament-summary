@@ -4,7 +4,7 @@ import ShortBill from "@/app/components/ShortBill";
 import HumanFriendlyColumn from "@/app/components/HumanFriendlyColumn";
 import StandardStack from "@/app/components/StandardStack";
 import type { Metadata } from "next";
-import StandardPagination from "@/components/StandardPagination";
+import StandardPagination from "@/app/components/StandardPagination";
 import StandardCard from "@/app/components/StandardCard";
 import StandardCardTitle from "@/app/components/StandardCardTitle";
 import StandardCardDescription from "@/app/components/StandardCardDescription";
@@ -17,7 +17,7 @@ const title = "Recent Bills";
 const subtitle =
   "Bills, including constitutional amendments, are proposals to change Singapore's laws. A bill needs a majority to pass, while amendments require a two-thirds majority. Below are the most recent proposals.";
 
-const itemsPerPage = parseInt(process.env.ITEMS_PER_PAGE!);
+const itemsPerPage = parseInt(process.env.NEXT_PUBLIC_ITEMS_PER_PAGE!);
 
 export const metadata: Metadata = {
   title,
@@ -79,10 +79,10 @@ export default async function RecentBills({
           <StandardCard>
             <StandardCardTitle>View More Bills</StandardCardTitle>
             <StandardCardDescription>
-              You've reached the end of our list of parliament bill summaries.
-              Due to technical constraints, we can only provide summaries for a
-              limited number of bills. To see more bills, visit the original
-              source.
+              You&apos;ve reached the end of our list of parliament bill
+              summaries. Due to technical constraints, we can only provide
+              summaries for a limited number of bills. To see more bills, visit
+              the original source.
             </StandardCardDescription>
             <Group mt="md" grow>
               <StandardButton
