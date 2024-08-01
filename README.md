@@ -157,6 +157,26 @@ NEXT_PUBLIC_REPOSITORY_URL="https://github.com/limdingwen/parliament-summary"
 
 `NEXT_PUBLIC_REPOSITORY_URL` is the URL of the GitHub repository you want the site to link to.
 
+#### Developing and Deploying
+
+To develop the site locally with live-reload, run:
+
+```sh
+cd site
+npm install
+npm run dev
+cd ..
+```
+
+To deploy the site to Cloudflare, run:
+
+```sh
+cd site
+npm install
+npm run deploy
+cd ..
+```
+
 ## To-dos
 
 Please see the [issues](https://github.com/limdingwen/parliament-summary/issues) page to see what currently requires help.
