@@ -22,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const defaultColorScheme = "auto";
-  const logo = <Text>Parliament Summary</Text>;
+  const logo = <Text>{process.env.NEXT_PUBLIC_SITE_NAME}</Text>;
   const links = [
     { name: "Bills", href: "/bills" },
     { name: "Debates", href: "/debates" },
