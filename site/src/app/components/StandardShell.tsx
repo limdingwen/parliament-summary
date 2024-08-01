@@ -76,7 +76,9 @@ export default function StandardShell({
         <Group h="100%" px="md">
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
           <Group justify="space-between" style={{ flex: 1 }}>
-            {logo}
+            <UnstyledButton component={Link} href="/">
+              {logo}
+            </UnstyledButton>
             <Group ml="xl" gap={0} visibleFrom="sm">
               {generatedButtons}
             </Group>
