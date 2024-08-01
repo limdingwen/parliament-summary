@@ -26,6 +26,10 @@ export default function RootLayout({
   const links = [
     { name: "Bills", href: "/bills" },
     { name: "Debates", href: "/debates" },
+    {
+      name: "GitHub",
+      href: process.env.NEXT_PUBLIC_REPOSITORY_URL!,
+    },
   ];
 
   // noinspection HtmlRequiredTitleElement
