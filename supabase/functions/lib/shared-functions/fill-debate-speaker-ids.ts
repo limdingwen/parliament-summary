@@ -6,8 +6,12 @@ import { SupabaseClient } from "https://esm.sh/v135/@supabase/supabase-js@2.24.0
 async function getDebateSpeechRows(supabase: SupabaseClient) {
   const { data, error } = await supabase
     .from("debate_speech")
-    .select("id, speaker_name")
-    .is("speaker_id", null);
+    .select("id, speaker_name, fill_debate_speaker_ids_updated_at")
+    .is("speaker_id", null)
+    // Update the earliest-updated ones first
+    .order("fill_debate_speaker_ids_updated_at", { ascending: true })
+    // Just make it explicit; Supabase already limits to 1000 by default
+    .limit(100);
   if (error) throw error;
   return data;
 }
@@ -33,7 +37,10 @@ async function updateDebateSpeechRowWithSpeakerId(
 ) {
   const { error } = await supabase
     .from("debate_speech")
-    .update({ speaker_id: speakerId })
+    .update({
+      speaker_id: speakerId,
+      fill_debate_speaker_ids_updated_at: new Date(),
+    })
     .eq("id", rowId);
   if (error) throw error;
 }
@@ -58,10 +65,8 @@ export default async function fillDebateSpeakerIds(req: Request) {
       row.speaker_name,
     );
 
-    // We assume that we are only working with speakerId = null rows, so if speakerId is still null,
-    // don't bother updating it.
+    await updateDebateSpeechRowWithSpeakerId(supabase, row.id, speakerId);
     if (speakerId) {
-      await updateDebateSpeechRowWithSpeakerId(supabase, row.id, speakerId);
       rowCount++;
     }
 
