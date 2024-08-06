@@ -210,6 +210,7 @@ This project is licensed under the CC-0 license, and is also released into the p
 ## Credits
 
 - Lim Ding Wen: Creator
+- https://www.reddit.com/user/throwawayofmice/: Contributor
 
 ## Acknowledgements
 
