@@ -56,7 +56,6 @@ export type Database = {
       }
       debate: {
         Row: {
-          bill_id: number | null
           created_at: string
           id: number
           order_no: number
@@ -65,7 +64,6 @@ export type Database = {
           title: string
         }
         Insert: {
-          bill_id?: number | null
           created_at?: string
           id?: number
           order_no: number
@@ -74,7 +72,6 @@ export type Database = {
           title: string
         }
         Update: {
-          bill_id?: number | null
           created_at?: string
           id?: number
           order_no?: number
@@ -83,20 +80,6 @@ export type Database = {
           title?: string
         }
         Relationships: [
-          {
-            foreignKeyName: "debate_bill_id_fkey"
-            columns: ["bill_id"]
-            isOneToOne: false
-            referencedRelation: "bill"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "debate_bill_id_fkey"
-            columns: ["bill_id"]
-            isOneToOne: false
-            referencedRelation: "debate_bill_match_view"
-            referencedColumns: ["bill_id"]
-          },
           {
             foreignKeyName: "debate_sitting_id_fkey"
             columns: ["sitting_id"]
@@ -111,30 +94,24 @@ export type Database = {
           content: string
           created_at: string
           debate_id: number
-          fill_debate_speaker_ids_updated_at: string
           id: number
           order_no: number
-          speaker_id: number | null
           speaker_name: string | null
         }
         Insert: {
           content: string
           created_at?: string
           debate_id: number
-          fill_debate_speaker_ids_updated_at?: string
           id?: number
           order_no: number
-          speaker_id?: number | null
           speaker_name?: string | null
         }
         Update: {
           content?: string
           created_at?: string
           debate_id?: number
-          fill_debate_speaker_ids_updated_at?: string
           id?: number
           order_no?: number
-          speaker_id?: number | null
           speaker_name?: string | null
         }
         Relationships: [
@@ -157,20 +134,6 @@ export type Database = {
             columns: ["debate_id"]
             isOneToOne: false
             referencedRelation: "debate_sortable_view"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "debate_speech_speaker_id_fkey"
-            columns: ["speaker_id"]
-            isOneToOne: false
-            referencedRelation: "combined_mp_names_view"
-            referencedColumns: ["mp_id"]
-          },
-          {
-            foreignKeyName: "debate_speech_speaker_id_fkey"
-            columns: ["speaker_id"]
-            isOneToOne: false
-            referencedRelation: "mp"
             referencedColumns: ["id"]
           },
         ]
@@ -385,25 +348,10 @@ export type Database = {
       debate_bill_match_view: {
         Row: {
           bill_id: number | null
-          debate_bill_id: number | null
           debate_id: number | null
+          is_second_reading: boolean | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "debate_bill_id_fkey"
-            columns: ["debate_bill_id"]
-            isOneToOne: false
-            referencedRelation: "bill"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "debate_bill_id_fkey"
-            columns: ["debate_bill_id"]
-            isOneToOne: false
-            referencedRelation: "debate_bill_match_view"
-            referencedColumns: ["bill_id"]
-          },
-        ]
+        Relationships: []
       }
       debate_sortable_view: {
         Row: {
