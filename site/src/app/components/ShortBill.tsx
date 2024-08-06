@@ -35,12 +35,18 @@ export default async function ShortBill({
           <Badge color="gray">
             Passed {moment(bill.passed_date).fromNow()}
           </Badge>
+        ) : bill.second_reading_date_type == "explicit" ? (
+          moment(bill.second_reading_date) <= moment() ? (
+            <Badge color="gray">
+              Read {moment(bill.second_reading_date).fromNow()}
+            </Badge>
+          ) : (
+            <Badge color="pink">
+              Reading {moment(bill.second_reading_date).fromNow()}
+            </Badge>
+          )
         ) : (
-          <Badge color="pink">
-            {bill.second_reading_date_type == "explicit"
-              ? `Reading ${moment(bill.second_reading_date).fromNow()}`
-              : "Reading during next seating"}
-          </Badge>
+          <Badge color="pink">Reading during next seating</Badge>
         )}
       </Group>
 
