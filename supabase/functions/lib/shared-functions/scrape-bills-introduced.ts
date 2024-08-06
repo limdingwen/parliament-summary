@@ -5,6 +5,7 @@ import {
   Element,
 } from "https://deno.land/x/deno_dom@v0.1.46/deno-dom-wasm.ts";
 import buildResponseProxy from "../utils/build-response-proxy.ts";
+import { SupabaseClient } from "https://esm.sh/v135/@supabase/supabase-js@2.24.0/dist/module/index.d.ts";
 
 function toIsoDate(dateString: string): string {
   const [day, month, year] = dateString.split(".");
@@ -16,6 +17,21 @@ function sanitiseUrl(url: string) {
 }
 
 // Scrapes recent bills metadata
+async function checkIfBillExists(
+  supabase: SupabaseClient,
+  scrapedData: {
+    bill_no: string;
+  },
+) {
+  const { data, error } = await supabase
+    .from("bill")
+    .select("bill_no")
+    .eq("bill_no", scrapedData.bill_no)
+    .maybeSingle();
+  if (error) throw error;
+  return data != null;
+}
+
 // Does not scrape the actual bill text and does not actually summarise them
 export default async function scrapeBillsIntroduced(req: Request) {
   const supabase = createSupabase();
@@ -87,12 +103,7 @@ export default async function scrapeBillsIntroduced(req: Request) {
       summary: null,
     };
 
-    const billExists =
-      (await supabase
-        .from("bill")
-        .select("bill_no")
-        .eq("bill_no", scrapedData.bill_no)
-        .maybeSingle()) != null;
+    const billExists = await checkIfBillExists(supabase, scrapedData);
 
     if (billExists) {
       // Make sure that we don't overwrite the original_text and summary values
