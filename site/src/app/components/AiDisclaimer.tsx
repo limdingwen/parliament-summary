@@ -1,11 +1,12 @@
 import { IconRobot } from "@tabler/icons-react";
 import { Group, Text, Tooltip } from "@mantine/core";
+import React from "react";
 
 export default function AiDisclaimer({
   shortExplainer,
   explainer,
 }: {
-  shortExplainer: string;
+  shortExplainer: React.ReactNode;
   explainer: string;
 }) {
   return (
