@@ -38,7 +38,7 @@ async function getBill(billNo: string) {
   const { error, data } = await supabase
     .from("bill")
     .select(
-      "bill_no, name, summary, pdf_url, date_introduced, second_reading_date_type, second_reading_date, is_passed, passed_date",
+      "id, bill_no, name, summary, pdf_url, date_introduced, second_reading_date_type, second_reading_date, is_passed, passed_date",
     )
     .eq("bill_no", billNo)
     .single();
@@ -49,7 +49,7 @@ async function getBill(billNo: string) {
 export default async function FullBill({
   params,
 }: {
-  params: { year: string; billNoOfYear: string };
+  params: { id: number; year: string; billNoOfYear: string };
 }) {
   const bill = await getBill(
     buildBillNoFromBillPath(params.year, params.billNoOfYear),

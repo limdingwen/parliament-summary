@@ -8,6 +8,7 @@ import SummaryNotAvailableApology from "@/app/components/SummaryNotAvailableApol
 import StandardButton from "@/app/components/StandardButton";
 import BillOriginalPdfButton from "@/app/components/BillOriginalPdfButton";
 import StandardMarkdown from "./StandardMarkdown";
+import BillDebateButton from "@/app/components/BillDebateButton";
 
 function flipBillNo(billNo: string) {
   const [billOfYear, year] = billNo.split("/");
@@ -17,6 +18,7 @@ export default async function ShortBill({
   bill,
 }: {
   bill: {
+    id: number;
     bill_no: string;
     name: string;
     second_reading_date_type: string;
@@ -69,6 +71,7 @@ export default async function ShortBill({
           Overview
         </StandardButton>
         <BillOriginalPdfButton bill={bill} />
+        <BillDebateButton bill={bill} />
       </Group>
     </StandardCard>
   );

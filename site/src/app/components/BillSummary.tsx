@@ -7,11 +7,12 @@ import SummaryAiDisclaimer from "@/app/components/SummaryAiDisclaimer";
 import BillOriginalPdfButton from "@/app/components/BillOriginalPdfButton";
 import SummaryNotAvailableApology from "@/app/components/SummaryNotAvailableApology";
 import React from "react";
+import BillDebateButton from "@/app/components/BillDebateButton";
 
 export default function BillSummary({
   bill,
 }: {
-  bill: { summary: string | null; pdf_url: string };
+  bill: { id: number; summary: string | null; pdf_url: string };
 }) {
   return (
     <StandardCard>
@@ -23,13 +24,17 @@ export default function BillSummary({
             <Markdown>{bill.summary}</Markdown>
             <Group justify="space-between">
               <SummaryAiDisclaimer />
-              <BillOriginalPdfButton bill={bill} />
+              <Group>
+                <BillOriginalPdfButton bill={bill} />
+                <BillDebateButton bill={bill} />
+              </Group>
             </Group>
           </Stack>
         ) : (
           <Group justify="space-between">
             <SummaryNotAvailableApology />
             <BillOriginalPdfButton bill={bill} />
+            <BillDebateButton bill={bill} />
           </Group>
         )}
       </StandardCardDescription>
