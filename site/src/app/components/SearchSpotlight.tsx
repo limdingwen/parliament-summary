@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import fetchFromSupabase from "@/utils/fetchFromSupabase";
 
 type ClientFriendlyData = {
   href: string;
@@ -15,17 +16,7 @@ async function getResults(query: string): Promise<{
   debate: ClientFriendlyData[];
   bill: ClientFriendlyData[];
 }> {
-  const url = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/search`;
-  const headers = new Headers({
-    Authorization: `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
-  });
-  const request = new Request(url, {
-    headers: headers,
-    method: "POST",
-    body: JSON.stringify({ query }),
-  });
-  const response = await fetch(request);
-  return response.json();
+  return fetchFromSupabase("search", { query });
 }
 
 function convertDataToActions(
