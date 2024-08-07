@@ -8,6 +8,7 @@ import SummaryNotAvailableApology from "@/app/components/SummaryNotAvailableApol
 import StandardButton from "@/app/components/StandardButton";
 import BillOriginalPdfButton from "@/app/components/BillOriginalPdfButton";
 import StandardMarkdown from "./StandardMarkdown";
+import BillDebateButton from "@/app/components/BillDebateButton";
 
 function flipBillNo(billNo: string) {
   const [billOfYear, year] = billNo.split("/");
@@ -17,6 +18,7 @@ export default async function ShortBill({
   bill,
 }: {
   bill: {
+    id: number;
     bill_no: string;
     name: string;
     second_reading_date_type: string;
@@ -35,12 +37,18 @@ export default async function ShortBill({
           <Badge color="gray">
             Passed {moment(bill.passed_date).fromNow()}
           </Badge>
+        ) : bill.second_reading_date_type == "explicit" ? (
+          moment(bill.second_reading_date) <= moment() ? (
+            <Badge color="gray">
+              Read {moment(bill.second_reading_date).fromNow()}
+            </Badge>
+          ) : (
+            <Badge color="pink">
+              Reading {moment(bill.second_reading_date).fromNow()}
+            </Badge>
+          )
         ) : (
-          <Badge color="pink">
-            {bill.second_reading_date_type == "explicit"
-              ? `Reading ${moment(bill.second_reading_date).fromNow()}`
-              : "Reading during next seating"}
-          </Badge>
+          <Badge color="pink">Reading during next seating</Badge>
         )}
       </Group>
 
@@ -63,6 +71,7 @@ export default async function ShortBill({
           Overview
         </StandardButton>
         <BillOriginalPdfButton bill={bill} />
+        <BillDebateButton bill={bill} />
       </Group>
     </StandardCard>
   );

@@ -53,6 +53,33 @@ We use OpenAI's API to generate summaries. You'll need to create an account and 
 
 Go back to Supabase, and go to `Edge Functions -> Manage secrets -> Add new secret`. Set the name as `OPENAI_API_KEY` and the value as your OpenAI API key.
 
+#### Providing Examples
+
+To give the summarising AI an idea of what style we want, we need to provide examples (also known as few-shot prompting).
+
+```shell
+cp supabase/functions/lib/sensitive/prompt-examples.ts.example supabase/functions/lib/sensitive/prompt-examples.ts
+```
+
+Open up the new file we just created.
+
+```ts
+export const summaryBulletPointExamples = [
+  {
+    user: "Example prompt",
+    assistant: "Example summary",
+  },
+  {
+    user: "Example prompt 2",
+    assistant: "Example summary 2",
+  }
+];
+```
+
+The `user` is an example un-summarised input, and the `assistant` is what we expect the AI to output given the example input. It should then learn what *style* of summarising we want.
+
+You can provide as many examples as you want. The more examples you provide, the better the AI will be at summarising in the style that you provided, but it will also cost more per summary, and it might also become too rigid.
+
 #### Edge Functions
 
 Edge functions can be deployed using scripts in the `scripts` folder. First, fill in the .env file:
@@ -210,6 +237,7 @@ This project is licensed under the CC-0 license, and is also released into the p
 ## Credits
 
 - Lim Ding Wen: Creator
+- https://www.reddit.com/user/throwawayofmice/: Contributor
 
 ## Acknowledgements
 

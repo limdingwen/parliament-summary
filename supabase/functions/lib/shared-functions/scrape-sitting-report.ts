@@ -97,7 +97,7 @@ export default async function scrapeSittingReport(req: Request) {
   let debateOrderNo = 0;
   for (const sittingReportItem of sittingReport.takesSectionVOList) {
     console.log("Scraping debate...");
-    const debateTitle = sittingReportItem.title;
+    const debateTitle = sittingReportItem.title.trim();
     // TODO: Add bill linkage
     const debateData = {
       order_no: debateOrderNo,

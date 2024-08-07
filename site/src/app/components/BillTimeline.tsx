@@ -43,7 +43,7 @@ function calculateBillActiveStep(bill: {
 
   if (
     bill.second_reading_date_type == "explicit" &&
-    moment(bill.second_reading_date) >= moment()
+    moment(bill.second_reading_date) <= moment()
   ) {
     return 3;
   }

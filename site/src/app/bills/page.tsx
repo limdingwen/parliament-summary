@@ -15,7 +15,7 @@ export const runtime = "edge";
 
 const title = "Recent Bills";
 const subtitle =
-  "Bills, including constitutional amendments, are proposals to change Singapore's laws. A bill needs a majority to pass, while amendments require a two-thirds majority. Below are the most recent proposals.";
+  "A Bill is a draft law which becomes an Act after it has been passed by Parliament and received the President’s assent. Generally, Bills to amend the Constitution require a two-thirds majority in Parliament (excluding Nominated Members of Parliament) to pass, while Bills to create a new Act or amend an existing Act require a simple majority to pass.";
 
 const itemsPerPage = parseInt(process.env.NEXT_PUBLIC_ITEMS_PER_PAGE!);
 
@@ -37,7 +37,7 @@ async function getRecentBills(page: number) {
   const { error, data } = await supabase
     .from("bill")
     .select(
-      "bill_no, name, second_reading_date_type, second_reading_date, is_passed, passed_date, summary, pdf_url",
+      "id, bill_no, name, second_reading_date_type, second_reading_date, is_passed, passed_date, summary, pdf_url",
     )
     .order("date_introduced", { ascending: false })
     .order("bill_no", { ascending: false })
