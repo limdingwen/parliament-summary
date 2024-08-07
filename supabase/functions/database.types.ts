@@ -403,7 +403,12 @@ export type Database = {
       }
     }
     Functions: {
-      [_ in never]: never
+      refresh_materialized_view: {
+        Args: {
+          view_name: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never
