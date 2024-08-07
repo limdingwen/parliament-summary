@@ -11,7 +11,7 @@
 29042||-9223372036854775808|T|G
 29042||10|T|G
 29042||16595|T|G</Grants>
-      <IntrospectionStateNumber>89820</IntrospectionStateNumber>
+      <IntrospectionStateNumber>89833</IntrospectionStateNumber>
       <ServerVersion>15.1</ServerVersion>
       <StartupTime>1722349334</StartupTime>
       <TimeZones>true ACDT
@@ -1508,7 +1508,7 @@ true posixrules
 29445||16732|C|G
 29445||16420|U|G
 29445||16732|U|G</Grants>
-      <IntrospectionStateNumber>89820</IntrospectionStateNumber>
+      <IntrospectionStateNumber>89833</IntrospectionStateNumber>
       <ObjectId>29042</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
@@ -5959,8 +5959,8 @@ idle_in_transaction_session_timeout=60000</Config>
 39658||16478|w|G
 39658||16479|w|G
 39658||16480|w|G</Grants>
-      <IntrospectionStateNumber>89333</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2024-08-07.09:40:44</LastIntrospectionLocalTimestamp>
+      <IntrospectionStateNumber>89833</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2024-08-07.10:40:44</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>1493</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
@@ -6147,118 +6147,279 @@ ALTER TABLE</Tags>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>supabase_admin</OwnerName>
     </table>
-    <argument id="322" parent="311">
+    <materialized-view id="322" parent="296" name="debate_bill_match_view">
+      <ObjectId>39658</ObjectId>
+      <SourceTextLength>423</SourceTextLength>
+      <StateNumber>89829</StateNumber>
+      <OwnerName>postgres</OwnerName>
+    </materialized-view>
+    <routine id="323" parent="296" name="refresh_materialized_view">
+      <ArgumentsDefinition>view_name text</ArgumentsDefinition>
+      <ConfigurationParameters>search_path=&quot;&quot;</ConfigurationParameters>
+      <ObjectId>37488</ObjectId>
+      <ResultsDefinition>void</ResultsDefinition>
+      <Rows>0.0</Rows>
+      <SecurityDefiner>1</SecurityDefiner>
+      <SourceTextLength>67</SourceTextLength>
+      <StateNumber>89755</StateNumber>
+      <LanguageName>plpgsql</LanguageName>
+      <OwnerName>postgres</OwnerName>
+    </routine>
+    <sequence id="324" parent="296" name="Bills_id_seq">
+      <DasType>bigint|0s</DasType>
+      <ObjectId>29791</ObjectId>
+      <SequenceIdentity>1</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>1624</StateNumber>
+      <OwnerName>postgres</OwnerName>
+    </sequence>
+    <sequence id="325" parent="296" name="debate_id_seq">
+      <DasType>bigint|0s</DasType>
+      <ObjectId>29814</ObjectId>
+      <SequenceIdentity>1</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>1629</StateNumber>
+      <OwnerName>postgres</OwnerName>
+    </sequence>
+    <sequence id="326" parent="296" name="debate_speech_id_seq">
+      <DasType>bigint|0s</DasType>
+      <ObjectId>29821</ObjectId>
+      <SequenceIdentity>1</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>1631</StateNumber>
+      <OwnerName>postgres</OwnerName>
+    </sequence>
+    <sequence id="327" parent="296" name="mp_aliases_id_seq">
+      <DasType>bigint|0s</DasType>
+      <ObjectId>29822</ObjectId>
+      <SequenceIdentity>1</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>1632</StateNumber>
+      <OwnerName>postgres</OwnerName>
+    </sequence>
+    <sequence id="328" parent="296" name="mp_id_seq">
+      <DasType>bigint|0s</DasType>
+      <ObjectId>29823</ObjectId>
+      <SequenceIdentity>1</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>1633</StateNumber>
+      <OwnerName>postgres</OwnerName>
+    </sequence>
+    <sequence id="329" parent="296" name="party_id_seq">
+      <DasType>bigint|0s</DasType>
+      <ObjectId>29830</ObjectId>
+      <SequenceIdentity>1</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>1635</StateNumber>
+      <OwnerName>postgres</OwnerName>
+    </sequence>
+    <sequence id="330" parent="296" name="sitting_id_seq">
+      <DasType>bigint|0s</DasType>
+      <ObjectId>29841</ObjectId>
+      <SequenceIdentity>1</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>1638</StateNumber>
+      <OwnerName>postgres</OwnerName>
+    </sequence>
+    <sequence id="331" parent="296" name="sitting_info_id_seq">
+      <DasType>bigint|0s</DasType>
+      <ObjectId>29842</ObjectId>
+      <SequenceIdentity>1</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>1639</StateNumber>
+      <OwnerName>postgres</OwnerName>
+    </sequence>
+    <table id="332" parent="296" name="bill">
+      <ObjectId>29785</ObjectId>
+      <StateNumber>1623</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <table id="333" parent="296" name="debate">
+      <ObjectId>29808</ObjectId>
+      <StateNumber>1628</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <table id="334" parent="296" name="debate_speech">
+      <ObjectId>29815</ObjectId>
+      <StateNumber>32204</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <table id="335" parent="296" name="mp">
+      <ObjectId>29792</ObjectId>
+      <StateNumber>1625</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <table id="336" parent="296" name="mp_aliases">
+      <ObjectId>29798</ObjectId>
+      <StateNumber>1626</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <table id="337" parent="296" name="party">
+      <ObjectId>29824</ObjectId>
+      <StateNumber>1634</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <table id="338" parent="296" name="sitting">
+      <Comment>Extra information that can only be scraped from the actual report.</Comment>
+      <ObjectId>29831</ObjectId>
+      <StateNumber>1636</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <table id="339" parent="296" name="sitting_date">
+      <ObjectId>29837</ObjectId>
+      <StateNumber>1637</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <view id="340" parent="296" name="bill_full_text_view">
+      <ObjectId>39256</ObjectId>
+      <SourceTextLength>225</SourceTextLength>
+      <StateNumber>89206</StateNumber>
+      <OwnerName>postgres</OwnerName>
+    </view>
+    <view id="341" parent="296" name="combined_mp_names_view">
+      <ObjectId>35086</ObjectId>
+      <SourceTextLength>137</SourceTextLength>
+      <StateNumber>32228</StateNumber>
+      <OwnerName>postgres</OwnerName>
+    </view>
+    <view id="342" parent="296" name="debate_sortable_view">
+      <ObjectId>30594</ObjectId>
+      <SourceTextLength>212</SourceTextLength>
+      <StateNumber>1923</StateNumber>
+      <OwnerName>postgres</OwnerName>
+    </view>
+    <view id="343" parent="296" name="debate_speech_full_text_view">
+      <ObjectId>39280</ObjectId>
+      <SourceTextLength>274</SourceTextLength>
+      <StateNumber>89209</StateNumber>
+      <OwnerName>postgres</OwnerName>
+    </view>
+    <view id="344" parent="296" name="unscraped_sitting_dates_view">
+      <ObjectId>29843</ObjectId>
+      <SourceTextLength>178</SourceTextLength>
+      <StateNumber>1640</StateNumber>
+      <OwnerName>postgres</OwnerName>
+    </view>
+    <argument id="345" parent="311">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>void|0s</DasType>
     </argument>
-    <argument id="323" parent="311" name="job_id">
+    <argument id="346" parent="311" name="job_id">
       <DasType>bigint|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="324" parent="311" name="schedule">
+    <argument id="347" parent="311" name="schedule">
       <DasType>text|0s</DasType>
       <DefaultExpression>NULL::text</DefaultExpression>
       <Position>2</Position>
     </argument>
-    <argument id="325" parent="311" name="command">
+    <argument id="348" parent="311" name="command">
       <DasType>text|0s</DasType>
       <DefaultExpression>NULL::text</DefaultExpression>
       <Position>3</Position>
     </argument>
-    <argument id="326" parent="311" name="database">
+    <argument id="349" parent="311" name="database">
       <DasType>text|0s</DasType>
       <DefaultExpression>NULL::text</DefaultExpression>
       <Position>4</Position>
     </argument>
-    <argument id="327" parent="311" name="username">
+    <argument id="350" parent="311" name="username">
       <DasType>text|0s</DasType>
       <DefaultExpression>NULL::text</DefaultExpression>
       <Position>5</Position>
     </argument>
-    <argument id="328" parent="311" name="active">
+    <argument id="351" parent="311" name="active">
       <DasType>boolean|0s</DasType>
       <DefaultExpression>NULL::boolean</DefaultExpression>
       <Position>6</Position>
     </argument>
-    <argument id="329" parent="312">
+    <argument id="352" parent="312">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>trigger|0s</DasType>
     </argument>
-    <argument id="330" parent="313">
+    <argument id="353" parent="313">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>bigint|0s</DasType>
     </argument>
-    <argument id="331" parent="313" name="schedule">
+    <argument id="354" parent="313" name="schedule">
       <DasType>text|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="332" parent="313" name="command">
+    <argument id="355" parent="313" name="command">
       <DasType>text|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="333" parent="314">
+    <argument id="356" parent="314">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>bigint|0s</DasType>
     </argument>
-    <argument id="334" parent="314" name="job_name">
+    <argument id="357" parent="314" name="job_name">
       <DasType>text|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="335" parent="314" name="schedule">
+    <argument id="358" parent="314" name="schedule">
       <DasType>text|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="336" parent="314" name="command">
+    <argument id="359" parent="314" name="command">
       <DasType>text|0s</DasType>
       <Position>3</Position>
     </argument>
-    <argument id="337" parent="315">
+    <argument id="360" parent="315">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>bigint|0s</DasType>
     </argument>
-    <argument id="338" parent="315" name="job_name">
+    <argument id="361" parent="315" name="job_name">
       <DasType>text|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="339" parent="315" name="schedule">
+    <argument id="362" parent="315" name="schedule">
       <DasType>text|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="340" parent="315" name="command">
+    <argument id="363" parent="315" name="command">
       <DasType>text|0s</DasType>
       <Position>3</Position>
     </argument>
-    <argument id="341" parent="315" name="database">
+    <argument id="364" parent="315" name="database">
       <DasType>text|0s</DasType>
       <Position>4</Position>
     </argument>
-    <argument id="342" parent="315" name="username">
+    <argument id="365" parent="315" name="username">
       <DasType>text|0s</DasType>
       <DefaultExpression>NULL::text</DefaultExpression>
       <Position>5</Position>
     </argument>
-    <argument id="343" parent="315" name="active">
+    <argument id="366" parent="315" name="active">
       <DasType>boolean|0s</DasType>
       <DefaultExpression>true</DefaultExpression>
       <Position>6</Position>
     </argument>
-    <argument id="344" parent="316">
+    <argument id="367" parent="316">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>boolean|0s</DasType>
     </argument>
-    <argument id="345" parent="316" name="job_id">
+    <argument id="368" parent="316" name="job_id">
       <DasType>bigint|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="346" parent="317">
+    <argument id="369" parent="317">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>boolean|0s</DasType>
     </argument>
-    <argument id="347" parent="317" name="job_name">
+    <argument id="370" parent="317" name="job_name">
       <DasType>text|0s</DasType>
       <Position>1</Position>
     </argument>
-    <column id="348" parent="320" name="jobid">
+    <column id="371" parent="320" name="jobid">
       <DasType>bigint|0s</DasType>
       <DefaultExpression>nextval(&apos;jobid_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
@@ -6266,21 +6427,21 @@ ALTER TABLE</Tags>
       <StateNumber>1123</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <column id="349" parent="320" name="schedule">
+    <column id="372" parent="320" name="schedule">
       <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>1123</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="350" parent="320" name="command">
+    <column id="373" parent="320" name="command">
       <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>1123</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="351" parent="320" name="nodename">
+    <column id="374" parent="320" name="nodename">
       <DasType>text|0s</DasType>
       <DefaultExpression>&apos;localhost&apos;::text</DefaultExpression>
       <NotNull>1</NotNull>
@@ -6288,7 +6449,7 @@ ALTER TABLE</Tags>
       <StateNumber>1123</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="352" parent="320" name="nodeport">
+    <column id="375" parent="320" name="nodeport">
       <DasType>integer|0s</DasType>
       <DefaultExpression>inet_server_port()</DefaultExpression>
       <NotNull>1</NotNull>
@@ -6296,7 +6457,7 @@ ALTER TABLE</Tags>
       <StateNumber>1123</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="353" parent="320" name="database">
+    <column id="376" parent="320" name="database">
       <DasType>text|0s</DasType>
       <DefaultExpression>current_database()</DefaultExpression>
       <NotNull>1</NotNull>
@@ -6304,7 +6465,7 @@ ALTER TABLE</Tags>
       <StateNumber>1123</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="354" parent="320" name="username">
+    <column id="377" parent="320" name="username">
       <DasType>text|0s</DasType>
       <DefaultExpression>CURRENT_USER</DefaultExpression>
       <NotNull>1</NotNull>
@@ -6312,7 +6473,7 @@ ALTER TABLE</Tags>
       <StateNumber>1123</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="355" parent="320" name="active">
+    <column id="378" parent="320" name="active">
       <DasType>boolean|0s</DasType>
       <DefaultExpression>true</DefaultExpression>
       <NotNull>1</NotNull>
@@ -6320,13 +6481,13 @@ ALTER TABLE</Tags>
       <StateNumber>1123</StateNumber>
       <TypeId>16</TypeId>
     </column>
-    <column id="356" parent="320" name="jobname">
+    <column id="379" parent="320" name="jobname">
       <DasType>text|0s</DasType>
       <Position>9</Position>
       <StateNumber>1123</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <index id="357" parent="320" name="job_pkey">
+    <index id="380" parent="320" name="job_pkey">
       <ColNames>jobid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>29057</ObjectId>
@@ -6335,7 +6496,7 @@ ALTER TABLE</Tags>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="358" parent="320" name="jobname_username_uniq">
+    <index id="381" parent="320" name="jobname_username_uniq">
       <ColNames>jobname
 username</ColNames>
       <ObjectId>29082</ObjectId>
@@ -6349,38 +6510,38 @@ default</CollationNames>
       <CollationParentNames>pg_catalog
 pg_catalog</CollationParentNames>
     </index>
-    <key id="359" parent="320" name="job_pkey">
+    <key id="382" parent="320" name="job_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>29058</ObjectId>
       <Primary>1</Primary>
       <StateNumber>1123</StateNumber>
       <UnderlyingIndexId>29057</UnderlyingIndexId>
     </key>
-    <key id="360" parent="320" name="jobname_username_uniq">
+    <key id="383" parent="320" name="jobname_username_uniq">
       <ObjectId>29083</ObjectId>
       <StateNumber>1123</StateNumber>
       <UnderlyingIndexId>29082</UnderlyingIndexId>
     </key>
-    <security-policy id="361" parent="320" name="cron_job_policy">
+    <security-policy id="384" parent="320" name="cron_job_policy">
       <ObjectId>29059</ObjectId>
       <Permissive>1</Permissive>
       <StateNumber>1123</StateNumber>
       <UsingExpression>(username = CURRENT_USER)</UsingExpression>
     </security-policy>
-    <trigger id="362" parent="320" name="cron_job_cache_invalidate">
+    <trigger id="385" parent="320" name="cron_job_cache_invalidate">
       <Events>IUDT</Events>
       <ObjectId>29063</ObjectId>
       <StateNumber>1726</StateNumber>
       <Turn>after-stmt</Turn>
       <CallRoutineId>29062</CallRoutineId>
     </trigger>
-    <column id="363" parent="321" name="jobid">
+    <column id="386" parent="321" name="jobid">
       <DasType>bigint|0s</DasType>
       <Position>1</Position>
       <StateNumber>1123</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <column id="364" parent="321" name="runid">
+    <column id="387" parent="321" name="runid">
       <DasType>bigint|0s</DasType>
       <DefaultExpression>nextval(&apos;runid_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
@@ -6388,55 +6549,55 @@ pg_catalog</CollationParentNames>
       <StateNumber>1123</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <column id="365" parent="321" name="job_pid">
+    <column id="388" parent="321" name="job_pid">
       <DasType>integer|0s</DasType>
       <Position>3</Position>
       <StateNumber>1123</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="366" parent="321" name="database">
+    <column id="389" parent="321" name="database">
       <DasType>text|0s</DasType>
       <Position>4</Position>
       <StateNumber>1123</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="367" parent="321" name="username">
+    <column id="390" parent="321" name="username">
       <DasType>text|0s</DasType>
       <Position>5</Position>
       <StateNumber>1123</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="368" parent="321" name="command">
+    <column id="391" parent="321" name="command">
       <DasType>text|0s</DasType>
       <Position>6</Position>
       <StateNumber>1123</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="369" parent="321" name="status">
+    <column id="392" parent="321" name="status">
       <DasType>text|0s</DasType>
       <Position>7</Position>
       <StateNumber>1123</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="370" parent="321" name="return_message">
+    <column id="393" parent="321" name="return_message">
       <DasType>text|0s</DasType>
       <Position>8</Position>
       <StateNumber>1123</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="371" parent="321" name="start_time">
+    <column id="394" parent="321" name="start_time">
       <DasType>timestamp with time zone|0s</DasType>
       <Position>9</Position>
       <StateNumber>1123</StateNumber>
       <TypeId>1184</TypeId>
     </column>
-    <column id="372" parent="321" name="end_time">
+    <column id="395" parent="321" name="end_time">
       <DasType>timestamp with time zone|0s</DasType>
       <Position>10</Position>
       <StateNumber>1123</StateNumber>
       <TypeId>1184</TypeId>
     </column>
-    <index id="373" parent="321" name="job_run_details_pkey">
+    <index id="396" parent="321" name="job_run_details_pkey">
       <ColNames>runid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>29072</ObjectId>
@@ -6445,18 +6606,829 @@ pg_catalog</CollationParentNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="374" parent="321" name="job_run_details_pkey">
+    <key id="397" parent="321" name="job_run_details_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>29073</ObjectId>
       <Primary>1</Primary>
       <StateNumber>1123</StateNumber>
       <UnderlyingIndexId>29072</UnderlyingIndexId>
     </key>
-    <security-policy id="375" parent="321" name="cron_job_run_details_policy">
+    <security-policy id="398" parent="321" name="cron_job_run_details_policy">
       <ObjectId>29074</ObjectId>
       <Permissive>1</Permissive>
       <StateNumber>1123</StateNumber>
       <UsingExpression>(username = CURRENT_USER)</UsingExpression>
     </security-policy>
+    <column id="399" parent="322" name="debate_id">
+      <DasType>bigint|0s</DasType>
+      <Position>1</Position>
+      <StateNumber>89283</StateNumber>
+    </column>
+    <column id="400" parent="322" name="bill_id">
+      <DasType>bigint|0s</DasType>
+      <Position>2</Position>
+      <StateNumber>89283</StateNumber>
+    </column>
+    <column id="401" parent="322" name="is_second_reading">
+      <DasType>boolean|0s</DasType>
+      <Position>3</Position>
+      <StateNumber>89283</StateNumber>
+    </column>
+    <argument id="402" parent="323">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DasType>void|0s</DasType>
+    </argument>
+    <argument id="403" parent="323" name="view_name">
+      <DasType>text|0s</DasType>
+      <Position>1</Position>
+    </argument>
+    <column id="404" parent="332" name="id">
+      <DasType>bigint|0s</DasType>
+      <IdentityKind>by-default</IdentityKind>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>1282</StateNumber>
+      <SequenceId>29791</SequenceId>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="405" parent="332" name="created_at">
+      <DasType>timestamp with time zone|0s</DasType>
+      <DefaultExpression>now()</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>1280</StateNumber>
+      <TypeId>1184</TypeId>
+    </column>
+    <column id="406" parent="332" name="name">
+      <DasType>text|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <StateNumber>1280</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="407" parent="332" name="date_introduced">
+      <DasType>date|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <StateNumber>1280</StateNumber>
+      <TypeId>1082</TypeId>
+    </column>
+    <column id="408" parent="332" name="second_reading_date_type">
+      <DasType>text|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+      <StateNumber>1280</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="409" parent="332" name="second_reading_date">
+      <DasType>date|0s</DasType>
+      <Position>6</Position>
+      <StateNumber>1280</StateNumber>
+      <TypeId>1082</TypeId>
+    </column>
+    <column id="410" parent="332" name="is_passed">
+      <DasType>boolean|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>7</Position>
+      <StateNumber>1280</StateNumber>
+      <TypeId>16</TypeId>
+    </column>
+    <column id="411" parent="332" name="passed_date">
+      <DasType>date|0s</DasType>
+      <Position>8</Position>
+      <StateNumber>1280</StateNumber>
+      <TypeId>1082</TypeId>
+    </column>
+    <column id="412" parent="332" name="pdf_url">
+      <DasType>text|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>9</Position>
+      <StateNumber>1280</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="413" parent="332" name="bill_no">
+      <DasType>text|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>10</Position>
+      <StateNumber>1280</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="414" parent="332" name="original_text">
+      <DasType>text|0s</DasType>
+      <Position>11</Position>
+      <StateNumber>1280</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="415" parent="332" name="summary">
+      <DasType>text|0s</DasType>
+      <Position>12</Position>
+      <StateNumber>1280</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <index id="416" parent="332" name="Bills_pkey">
+      <ColNames>id</ColNames>
+      <ObjectId>29947</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1356</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <index id="417" parent="332" name="bill_bill_no_key">
+      <ColNames>bill_no</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>29949</ObjectId>
+      <StateNumber>1357</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+      <CollationNames>default</CollationNames>
+      <CollationIds>100</CollationIds>
+      <CollationParentNames>pg_catalog</CollationParentNames>
+    </index>
+    <key id="418" parent="332" name="Bills_pkey">
+      <ObjectId>29948</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1356</StateNumber>
+      <UnderlyingIndexId>29947</UnderlyingIndexId>
+    </key>
+    <key id="419" parent="332" name="bill_bill_no_key">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>29950</ObjectId>
+      <StateNumber>1357</StateNumber>
+      <UnderlyingIndexId>29949</UnderlyingIndexId>
+    </key>
+    <security-policy id="420" parent="332" name="Enable read access for all users">
+      <ObjectId>30148</ObjectId>
+      <OperationType>select</OperationType>
+      <Permissive>1</Permissive>
+      <StateNumber>1465</StateNumber>
+      <UsingExpression>true</UsingExpression>
+    </security-policy>
+    <column id="421" parent="333" name="id">
+      <DasType>bigint|0s</DasType>
+      <IdentityKind>by-default</IdentityKind>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>1291</StateNumber>
+      <SequenceId>29814</SequenceId>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="422" parent="333" name="created_at">
+      <DasType>timestamp with time zone|0s</DasType>
+      <DefaultExpression>now()</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>1289</StateNumber>
+      <TypeId>1184</TypeId>
+    </column>
+    <column id="423" parent="333" name="sitting_id">
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <StateNumber>1289</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="424" parent="333" name="title">
+      <DasType>text|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <StateNumber>1289</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="425" parent="333" name="summary">
+      <DasType>text|0s</DasType>
+      <Position>6</Position>
+      <StateNumber>1289</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="426" parent="333" name="order_no">
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>7</Position>
+      <StateNumber>1289</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <foreign-key id="427" parent="333" name="debate_sitting_id_fkey">
+      <ColNames>sitting_id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>30098</ObjectId>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <StateNumber>1439</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>29831</RefTableId>
+    </foreign-key>
+    <index id="428" parent="333" name="debate_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>29951</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1358</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="429" parent="333" name="debate_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>29952</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1358</StateNumber>
+      <UnderlyingIndexId>29951</UnderlyingIndexId>
+    </key>
+    <security-policy id="430" parent="333" name="Enable read access for all users">
+      <ObjectId>30149</ObjectId>
+      <OperationType>select</OperationType>
+      <Permissive>1</Permissive>
+      <StateNumber>1466</StateNumber>
+      <UsingExpression>true</UsingExpression>
+    </security-policy>
+    <column id="431" parent="334" name="id">
+      <DasType>bigint|0s</DasType>
+      <IdentityKind>by-default</IdentityKind>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>1295</StateNumber>
+      <SequenceId>29821</SequenceId>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="432" parent="334" name="created_at">
+      <DasType>timestamp with time zone|0s</DasType>
+      <DefaultExpression>now()</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>1292</StateNumber>
+      <TypeId>1184</TypeId>
+    </column>
+    <column id="433" parent="334" name="debate_id">
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <StateNumber>1292</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="434" parent="334" name="content">
+      <DasType>text|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+      <StateNumber>1292</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="435" parent="334" name="order_no">
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+      <StateNumber>1292</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="436" parent="334" name="speaker_name">
+      <Comment>The speaker name as detected in the content, without the honorifics. Trimmed. Used to enable dynamic name aliasing.</Comment>
+      <DasType>text|0s</DasType>
+      <Position>7</Position>
+      <StateNumber>1292</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <foreign-key id="437" parent="334" name="debate_speech_debate_id_fkey">
+      <ColNames>debate_id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>30103</ObjectId>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <StateNumber>1440</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>29808</RefTableId>
+    </foreign-key>
+    <index id="438" parent="334" name="debate_speech_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>29953</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1359</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="439" parent="334" name="debate_speech_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>29954</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1359</StateNumber>
+      <UnderlyingIndexId>29953</UnderlyingIndexId>
+    </key>
+    <security-policy id="440" parent="334" name="Enable read access for all users">
+      <ObjectId>30150</ObjectId>
+      <OperationType>select</OperationType>
+      <Permissive>1</Permissive>
+      <StateNumber>1467</StateNumber>
+      <UsingExpression>true</UsingExpression>
+    </security-policy>
+    <column id="441" parent="335" name="id">
+      <DasType>bigint|0s</DasType>
+      <IdentityKind>by-default</IdentityKind>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>1297</StateNumber>
+      <SequenceId>29823</SequenceId>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="442" parent="335" name="created_at">
+      <DasType>timestamp with time zone|0s</DasType>
+      <DefaultExpression>now()</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>1283</StateNumber>
+      <TypeId>1184</TypeId>
+    </column>
+    <column id="443" parent="335" name="gender">
+      <DasType>text|0s</DasType>
+      <Position>3</Position>
+      <StateNumber>1283</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="444" parent="335" name="date_of_birth">
+      <DasType>date|0s</DasType>
+      <Position>4</Position>
+      <StateNumber>1283</StateNumber>
+      <TypeId>1082</TypeId>
+    </column>
+    <column id="445" parent="335" name="place_of_birth">
+      <DasType>text|0s</DasType>
+      <Position>5</Position>
+      <StateNumber>1283</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="446" parent="335" name="given_name">
+      <DasType>text|0s</DasType>
+      <Position>6</Position>
+      <StateNumber>1283</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="447" parent="335" name="family_name">
+      <DasType>text|0s</DasType>
+      <Position>7</Position>
+      <StateNumber>1283</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="448" parent="335" name="full_name">
+      <DasType>text|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>8</Position>
+      <StateNumber>1283</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="449" parent="335" name="party_id">
+      <DasType>bigint|0s</DasType>
+      <Position>9</Position>
+      <StateNumber>1283</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="450" parent="335" name="photo_url">
+      <DasType>text|0s</DasType>
+      <Position>10</Position>
+      <StateNumber>1283</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="451" parent="335" name="wikidata_id">
+      <DasType>text|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>11</Position>
+      <StateNumber>1283</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <foreign-key id="452" parent="335" name="mp_party_id_fkey">
+      <ColNames>party_id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>30118</ObjectId>
+      <OnDelete>set-null</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <StateNumber>1443</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>29824</RefTableId>
+    </foreign-key>
+    <index id="453" parent="335" name="mp_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>29957</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1361</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <index id="454" parent="335" name="mp_wikidata_id_key">
+      <ColNames>wikidata_id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>29959</ObjectId>
+      <StateNumber>1362</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+      <CollationNames>default</CollationNames>
+      <CollationIds>100</CollationIds>
+      <CollationParentNames>pg_catalog</CollationParentNames>
+    </index>
+    <key id="455" parent="335" name="mp_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>29958</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1361</StateNumber>
+      <UnderlyingIndexId>29957</UnderlyingIndexId>
+    </key>
+    <key id="456" parent="335" name="mp_wikidata_id_key">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>29960</ObjectId>
+      <StateNumber>1362</StateNumber>
+      <UnderlyingIndexId>29959</UnderlyingIndexId>
+    </key>
+    <security-policy id="457" parent="335" name="Enable read access for all users">
+      <ObjectId>30151</ObjectId>
+      <OperationType>select</OperationType>
+      <Permissive>1</Permissive>
+      <StateNumber>1468</StateNumber>
+      <UsingExpression>true</UsingExpression>
+    </security-policy>
+    <column id="458" parent="336" name="id">
+      <DasType>bigint|0s</DasType>
+      <IdentityKind>by-default</IdentityKind>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>1296</StateNumber>
+      <SequenceId>29822</SequenceId>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="459" parent="336" name="created_at">
+      <DasType>timestamp with time zone|0s</DasType>
+      <DefaultExpression>now()</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>1285</StateNumber>
+      <TypeId>1184</TypeId>
+    </column>
+    <column id="460" parent="336" name="mp_id">
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <StateNumber>1285</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="461" parent="336" name="alias_name">
+      <DasType>text|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <StateNumber>1285</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <foreign-key id="462" parent="336" name="mp_aliases_mp_id_fkey">
+      <ColNames>mp_id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>30113</ObjectId>
+      <OnUpdate>cascade</OnUpdate>
+      <StateNumber>1442</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>29792</RefTableId>
+    </foreign-key>
+    <index id="463" parent="336" name="mp_aliases_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>29955</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1360</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="464" parent="336" name="mp_aliases_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>29956</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1360</StateNumber>
+      <UnderlyingIndexId>29955</UnderlyingIndexId>
+    </key>
+    <security-policy id="465" parent="336" name="Enable read access for all users">
+      <ObjectId>30152</ObjectId>
+      <OperationType>select</OperationType>
+      <Permissive>1</Permissive>
+      <StateNumber>1469</StateNumber>
+      <UsingExpression>true</UsingExpression>
+    </security-policy>
+    <column id="466" parent="337" name="id">
+      <DasType>bigint|0s</DasType>
+      <IdentityKind>by-default</IdentityKind>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>1300</StateNumber>
+      <SequenceId>29830</SequenceId>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="467" parent="337" name="created_at">
+      <DasType>timestamp with time zone|0s</DasType>
+      <DefaultExpression>now()</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>1298</StateNumber>
+      <TypeId>1184</TypeId>
+    </column>
+    <column id="468" parent="337" name="name">
+      <DasType>text|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <StateNumber>1298</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="469" parent="337" name="colour">
+      <DasType>text|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <StateNumber>1298</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="470" parent="337" name="photo_url">
+      <DasType>text|0s</DasType>
+      <Position>5</Position>
+      <StateNumber>1298</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="471" parent="337" name="wikidata_id">
+      <DasType>text|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+      <StateNumber>1298</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <index id="472" parent="337" name="party_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>29961</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1363</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <index id="473" parent="337" name="party_wikidata_id_key">
+      <ColNames>wikidata_id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>29963</ObjectId>
+      <StateNumber>1364</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+      <CollationNames>default</CollationNames>
+      <CollationIds>100</CollationIds>
+      <CollationParentNames>pg_catalog</CollationParentNames>
+    </index>
+    <key id="474" parent="337" name="party_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>29962</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1363</StateNumber>
+      <UnderlyingIndexId>29961</UnderlyingIndexId>
+    </key>
+    <key id="475" parent="337" name="party_wikidata_id_key">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>29964</ObjectId>
+      <StateNumber>1364</StateNumber>
+      <UnderlyingIndexId>29963</UnderlyingIndexId>
+    </key>
+    <security-policy id="476" parent="337" name="Enable read access for all users">
+      <ObjectId>30153</ObjectId>
+      <OperationType>select</OperationType>
+      <Permissive>1</Permissive>
+      <StateNumber>1470</StateNumber>
+      <UsingExpression>true</UsingExpression>
+    </security-policy>
+    <column id="477" parent="338" name="id">
+      <DasType>bigint|0s</DasType>
+      <IdentityKind>by-default</IdentityKind>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>1307</StateNumber>
+      <SequenceId>29842</SequenceId>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="478" parent="338" name="created_at">
+      <DasType>timestamp with time zone|0s</DasType>
+      <DefaultExpression>now()</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>1301</StateNumber>
+      <TypeId>1184</TypeId>
+    </column>
+    <column id="479" parent="338" name="sitting_date_id">
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <StateNumber>1301</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="480" parent="338" name="parliament_no">
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <StateNumber>1301</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="481" parent="338" name="session_no">
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+      <StateNumber>1301</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="482" parent="338" name="volume_no">
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+      <StateNumber>1301</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="483" parent="338" name="sitting_no">
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>7</Position>
+      <StateNumber>1301</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="484" parent="338" name="summary">
+      <DasType>text|0s</DasType>
+      <Position>8</Position>
+      <StateNumber>1301</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <foreign-key id="485" parent="338" name="sitting_info_sitting_id_fkey">
+      <ColNames>sitting_date_id</ColNames>
+      <ObjectId>30123</ObjectId>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <StateNumber>1444</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>29837</RefTableId>
+    </foreign-key>
+    <index id="486" parent="338" name="sitting_info_pkey">
+      <ColNames>id</ColNames>
+      <ObjectId>29965</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1365</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <index id="487" parent="338" name="sitting_info_sitting_id_key">
+      <ColNames>sitting_date_id</ColNames>
+      <ObjectId>29967</ObjectId>
+      <StateNumber>1366</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="488" parent="338" name="sitting_info_pkey">
+      <ObjectId>29966</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1365</StateNumber>
+      <UnderlyingIndexId>29965</UnderlyingIndexId>
+    </key>
+    <key id="489" parent="338" name="sitting_info_sitting_id_key">
+      <ObjectId>29968</ObjectId>
+      <StateNumber>1366</StateNumber>
+      <UnderlyingIndexId>29967</UnderlyingIndexId>
+    </key>
+    <security-policy id="490" parent="338" name="Enable read access for all users">
+      <ObjectId>30154</ObjectId>
+      <OperationType>select</OperationType>
+      <Permissive>1</Permissive>
+      <StateNumber>1471</StateNumber>
+      <UsingExpression>true</UsingExpression>
+    </security-policy>
+    <column id="491" parent="339" name="id">
+      <DasType>bigint|0s</DasType>
+      <IdentityKind>by-default</IdentityKind>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>1306</StateNumber>
+      <SequenceId>29841</SequenceId>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="492" parent="339" name="created_at">
+      <DasType>timestamp with time zone|0s</DasType>
+      <DefaultExpression>now()</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>1304</StateNumber>
+      <TypeId>1184</TypeId>
+    </column>
+    <column id="493" parent="339" name="sitting_date">
+      <DasType>date|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <StateNumber>1304</StateNumber>
+      <TypeId>1082</TypeId>
+    </column>
+    <index id="494" parent="339" name="sitting_pkey">
+      <ColNames>id</ColNames>
+      <ObjectId>29969</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1367</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <index id="495" parent="339" name="sitting_sitting_date_key">
+      <ColNames>sitting_date</ColNames>
+      <ObjectId>29971</ObjectId>
+      <StateNumber>1368</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="496" parent="339" name="sitting_pkey">
+      <ObjectId>29970</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1367</StateNumber>
+      <UnderlyingIndexId>29969</UnderlyingIndexId>
+    </key>
+    <key id="497" parent="339" name="sitting_sitting_date_key">
+      <ObjectId>29972</ObjectId>
+      <StateNumber>1368</StateNumber>
+      <UnderlyingIndexId>29971</UnderlyingIndexId>
+    </key>
+    <security-policy id="498" parent="339" name="Enable read access for all users">
+      <ObjectId>30155</ObjectId>
+      <OperationType>select</OperationType>
+      <Permissive>1</Permissive>
+      <StateNumber>1472</StateNumber>
+      <UsingExpression>true</UsingExpression>
+    </security-policy>
+    <column id="499" parent="340" name="bill_no">
+      <DasType>text|0s</DasType>
+      <Position>1</Position>
+      <StateNumber>89206</StateNumber>
+    </column>
+    <column id="500" parent="340" name="name">
+      <DasType>text|0s</DasType>
+      <Position>2</Position>
+      <StateNumber>89206</StateNumber>
+    </column>
+    <column id="501" parent="340" name="full_text">
+      <DasType>text|0s</DasType>
+      <Position>3</Position>
+      <StateNumber>89206</StateNumber>
+    </column>
+    <column id="502" parent="341" name="mp_id">
+      <DasType>bigint|0s</DasType>
+      <Position>1</Position>
+      <StateNumber>32228</StateNumber>
+    </column>
+    <column id="503" parent="341" name="full_name">
+      <DasType>text|0s</DasType>
+      <Position>2</Position>
+      <StateNumber>32228</StateNumber>
+    </column>
+    <column id="504" parent="341" name="alias_name">
+      <DasType>text|0s</DasType>
+      <Position>3</Position>
+      <StateNumber>32228</StateNumber>
+    </column>
+    <column id="505" parent="342" name="id">
+      <DasType>bigint|0s</DasType>
+      <Position>1</Position>
+      <StateNumber>1923</StateNumber>
+    </column>
+    <column id="506" parent="342" name="title">
+      <DasType>text|0s</DasType>
+      <Position>2</Position>
+      <StateNumber>1923</StateNumber>
+    </column>
+    <column id="507" parent="342" name="order_no">
+      <DasType>bigint|0s</DasType>
+      <Position>3</Position>
+      <StateNumber>1923</StateNumber>
+    </column>
+    <column id="508" parent="342" name="summary">
+      <DasType>text|0s</DasType>
+      <Position>4</Position>
+      <StateNumber>1923</StateNumber>
+    </column>
+    <column id="509" parent="342" name="sitting_date">
+      <DasType>date|0s</DasType>
+      <Position>5</Position>
+      <StateNumber>1923</StateNumber>
+    </column>
+    <column id="510" parent="343" name="debate_id">
+      <DasType>bigint|0s</DasType>
+      <Position>1</Position>
+      <StateNumber>89209</StateNumber>
+    </column>
+    <column id="511" parent="343" name="title">
+      <DasType>text|0s</DasType>
+      <Position>2</Position>
+      <StateNumber>89209</StateNumber>
+    </column>
+    <column id="512" parent="343" name="full_text">
+      <DasType>text|0s</DasType>
+      <Position>3</Position>
+      <StateNumber>89209</StateNumber>
+    </column>
+    <column id="513" parent="344" name="id">
+      <DasType>bigint|0s</DasType>
+      <Position>1</Position>
+      <StateNumber>1308</StateNumber>
+    </column>
+    <column id="514" parent="344" name="created_at">
+      <DasType>timestamp with time zone|0s</DasType>
+      <Position>2</Position>
+      <StateNumber>1308</StateNumber>
+    </column>
+    <column id="515" parent="344" name="sitting_date">
+      <DasType>date|0s</DasType>
+      <Position>3</Position>
+      <StateNumber>1308</StateNumber>
+    </column>
   </database-model>
 </dataSource>
