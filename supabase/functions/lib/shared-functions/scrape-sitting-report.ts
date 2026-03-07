@@ -43,31 +43,44 @@ export default async function scrapeSittingReport(req: Request) {
   }
 
   console.log("Getting sitting dates that need scraping...");
-  const { data: unscrapedDateData, error: unscrapedDateError } = await supabase
+  const { data: unscrapedDatesData, error: unscrapedDateError } = await supabase
     .from("unscraped_sitting_dates_view")
     .select("id, sitting_date")
     .order("sitting_date", { ascending: false })
-    .limit(1)
-    .maybeSingle();
+    .limit(10);
   if (unscrapedDateError) throw unscrapedDateError;
-  if (!unscrapedDateData) {
+  if (!unscrapedDatesData || unscrapedDatesData.length === 0) {
     return buildResponseProxy({ message: "No sitting dates need scraping." });
   }
-  console.log(`${unscrapedDateData.sitting_date} needs scraping.`);
 
   console.log("Getting sitting report JSON from URL...");
   const sittingReportUrl = "https://sprs.parl.gov.sg/search/getHansardReport/";
-  const sittingReportFormattedDate = format(
-    new Date(unscrapedDateData.sitting_date),
-    "dd-MM-yyyy",
-  );
-  const sittingReportRequestParams = new URLSearchParams({
-    sittingDate: sittingReportFormattedDate,
-  });
-  const sittingReportResponse = await fetch(
-    sittingReportUrl + "?" + sittingReportRequestParams,
-  );
-  const sittingReport = await sittingReportResponse.json();
+
+  let unscrapedDateData = null;
+  let sittingReport = null;
+  for (const candidate of unscrapedDatesData) {
+    const formattedDate = format(new Date(candidate.sitting_date), "dd-MM-yyyy");
+    const params = new URLSearchParams({ sittingDate: formattedDate });
+    const url = sittingReportUrl + "?" + params;
+    console.log(`Trying report URL for ${candidate.sitting_date}:`, url);
+    try {
+      const response = await fetch(url);
+      const json = await response.json();
+      if (json?.metadata && json?.takesSectionVOList) {
+        unscrapedDateData = candidate;
+        sittingReport = json;
+        console.log(`Valid report found for ${candidate.sitting_date}.`);
+        break;
+      }
+      console.log(`No valid report for ${candidate.sitting_date}, trying next...`);
+    } catch {
+      console.log(`Failed to parse JSON for ${candidate.sitting_date}, trying next...`);
+    }
+  }
+
+  if (!unscrapedDateData || !sittingReport) {
+    return buildResponseProxy({ message: "No valid sitting report JSON found for any candidate date." });
+  }
 
   console.log("Scraping sitting report metadata...");
   const parliamentNo = sittingReport.metadata.parlimentNO;
