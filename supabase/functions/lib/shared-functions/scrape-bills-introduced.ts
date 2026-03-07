@@ -44,10 +44,7 @@ export default async function scrapeBillsIntroduced(req: Request) {
   const billsIntroducedUrl =
     "https://www.parliament.gov.sg/parliamentary-business/bills-introduced";
   const billsIntroducedPaginationSize = "40";
-  const billsIntroducedResponse = await fetch(billsIntroducedUrl, {
-    method: "POST",
-    body: new URLSearchParams({ PageSize: billsIntroducedPaginationSize }),
-  });
+  const billsIntroducedResponse = await fetch(`${billsIntroducedUrl}/?pageSize=${billsIntroducedPaginationSize}`);
 
   console.log("Parsing the downloaded HTML...");
   const billsIntroducedHtml = await billsIntroducedResponse.text();

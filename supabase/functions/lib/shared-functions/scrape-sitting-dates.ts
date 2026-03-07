@@ -14,10 +14,7 @@ async function getSittingDatesHtml() {
     "https://www.parliament.gov.sg/parliamentary-business/votes-and-proceedings";
   const pageSize = "40";
   return (
-    await fetch(url, {
-      method: "POST",
-      body: new URLSearchParams({ PageSize: pageSize }),
-    })
+    await fetch(`${url}?pageSize=${pageSize}`)
   ).text();
 }
 
